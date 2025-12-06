@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "تيشيرت كلاسيك أسود",
+        "price": 250,
+        "category": "men",
+        "image": "https://placehold.co/300x300/111/fff?text=T-Shirt+Black",
+        "description": "تيشيرت قطني مريح جداً"
+    },
+    {
+        "id": 2,
+        "name": "فستان صيفي أزرق",
+        "price": 500,
+        "category": "women",
+        "image": "https://placehold.co/300x300/e91e63/fff?text=Summer+Dress",
+        "description": "فستان خفيف للصيف"
+    },
+    {
+        "id": 3,
+        "name": "ساعة ذكية رياضية",
+        "price": 1200,
+        "category": "accessories",
+        "image": "https://placehold.co/300x300/2c3e50/fff?text=Smart+Watch",
+        "description": "ساعة تقيس نبضات القلب والخطوات"
+    },
+    {
+        "id": 4,
+        "name": "جاكيت جينز",
+        "price": 650,
+        "category": "men",
+        "image": "https://placehold.co/300x300/3498db/fff?text=Jeans+Jacket",
+        "description": "جاكيت جينز أزرق فاتح"
+    },
+    {
+        "id": 5,
+        "name": "حقيبة جلدية",
+        "price": 400,
+        "category": "women",
+        "image": "https://placehold.co/300x300/d35400/fff?text=Leather+Bag",
+        "description": "حقيبة يد واسعة"
+    },
+    {
+        "id": 6,
+        "name": "نظارة شمسية",
+        "price": 150,
+        "category": "accessories",
+        "image": "https://placehold.co/300x300/f1c40f/333?text=Sun+Glasses",
+        "description": "حماية كاملة من الأشعة فوق البنفسجية"
+    }
+]

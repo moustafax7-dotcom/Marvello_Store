@@ -1,0 +1,38 @@
+/* css/responsive.css */
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 0;
+    }
+
+    .nav-links {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .filters-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-wrapper {
+        width: 100%;
+    }
+
+    .categories-btn-group {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+    
+    .categories-btn-group button {
+        white-space: nowrap;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}

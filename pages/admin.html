@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvello | لوحة التحكم</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body style="background-color: #f1f2f6;">
+
+    <header style="background: #2c3e50;">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo" style="color: white;">لوحة الإدارة 🛡️</a>
+                <ul class="nav-links">
+                    <li><a href="home.html" style="color: #bdc3c7;">عرض الموقع</a></li>
+                    <li><a href="#" onclick="logout()" style="color: #e74c3c;">تسجيل خروج</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container" style="margin-top: 30px;">
+        
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
+            <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; border-right: 4px solid #3498db; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                <h3>الطلبات الواردة</h3>
+                <h1 id="countOrders">0</h1>
+            </div>
+            <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; border-right: 4px solid #2ecc71; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                <h3>إجمالي الأرباح</h3>
+                <h1 id="totalEarnings">0 ج.م</h1>
+            </div>
+            <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; border-right: 4px solid #f1c40f; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                <h3>عدد المنتجات</h3>
+                <h1 id="countProducts">0</h1>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+            
+            <div style="flex: 2; min-width: 300px;">
+                <h2 style="margin-bottom: 15px;">📋 آخر الطلبات</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>العميل</th>
+                            <th>المنتجات</th>
+                            <th>المبلغ</th>
+                            <th>إجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTable">
+                        </tbody>
+                </table>
+            </div>
+
+            <div style="flex: 1; min-width: 300px;">
+                <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow);">
+                    <h3 style="margin-bottom: 15px;">➕ إضافة منتج جديد</h3>
+                    <form id="addProductForm">
+                        <input type="text" id="pName" placeholder="اسم المنتج" required style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                        
+                        <input type="number" id="pPrice" placeholder="السعر" required style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                        
+                        <select id="pCategory" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                            <option value="men">رجالي</option>
+                            <option value="women">حريمي</option>
+                            <option value="accessories">إكسسوارات</option>
+                        </select>
+                        
+                        <input type="text" id="pImage" placeholder="رابط الصورة (اختياري)" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                        
+                        <button type="submit" class="btn btn-primary" style="width:100%;">نشر المنتج</button>
+                    </form>
+                    
+                    <hr style="margin: 20px 0;">
+                    <h4>منتجات مضافة حديثاً:</h4>
+                    <ul id="addedProductsList" style="font-size: 14px; color: #666;"></ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script> <script src="../js/admin.js"></script>
+</body>
+</html>

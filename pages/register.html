@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب جديد</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body style="display:flex; justify-content:center; align-items:center; height:100vh;">
+    <div class="container" style="max-width:400px; background:white; padding:40px; border-radius:10px; box-shadow:var(--shadow); text-align:center;">
+        <h2 style="color:var(--primary); margin-bottom:20px;">حساب جديد</h2>
+        <form id="registerForm">
+            <input type="text" id="regName" placeholder="الاسم بالكامل" required style="width:100%; padding:10px; margin-bottom:10px;">
+            <input type="email" id="regEmail" placeholder="البريد الإلكتروني" required style="width:100%; padding:10px; margin-bottom:10px;">
+            <input type="password" id="regPass" placeholder="كلمة المرور" required style="width:100%; padding:10px; margin-bottom:20px;">
+            <button type="submit" class="btn btn-primary" style="width:100%;">إنشاء الحساب</button>
+        </form>
+        <p style="margin-top:15px;">لديك حساب بالفعل؟ <a href="../index.html" style="color:var(--primary)">سجل دخول</a></p>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const pass = document.getElementById('regPass').value;
+            
+            registerUser(name, email, pass);
+        });
+    </script>
+</body>
+</html>

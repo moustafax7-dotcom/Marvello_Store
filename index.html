@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvello | تسجيل الدخول</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body style="display:flex; justify-content:center; align-items:center; height:100vh; background-color: #f8f9fa;">
+    
+    <div class="container" style="max-width:400px; text-align:center; background:white; padding:40px; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.1);">
+        <h1 style="color:#ff4b2b; margin-bottom:20px; font-family: sans-serif;">MARVELLO</h1>
+        
+        <form id="loginForm">
+            <div style="margin-bottom: 15px; position: relative;">
+                <i class="fas fa-envelope" style="position: absolute; top: 12px; right: 10px; color: #888;"></i>
+                <input type="email" id="email" placeholder="البريد الإلكتروني" required style="width:100%; padding:10px 35px 10px 10px; border: 1px solid #ddd; border-radius: 5px;">
+            </div>
+            
+            <div style="margin-bottom: 20px; position: relative;">
+                <i class="fas fa-lock" style="position: absolute; top: 12px; right: 10px; color: #888;"></i>
+                <input type="password" id="password" placeholder="كلمة المرور" required style="width:100%; padding:10px 35px 10px 10px; border: 1px solid #ddd; border-radius: 5px;">
+            </div>
+
+            <button type="submit" style="width:100%; padding:12px; background: #ff4b2b; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">دخول</button>
+            
+            <p style="margin-top: 20px; font-size: 14px;">
+                <a href="pages/register.html" style="color: #ff4b2b; font-weight: bold;">إنشاء حساب جديد</a>
+                <span style="color: #ddd;">|</span>
+                <a href="pages/forgot.html" style="color: #555;">نسيت كلمة السر؟</a>
+            </p>
+            <p style="margin-top: 15px; font-size: 12px; color: #666;">
+                جرب تدخل بـ: <b>admin@gmail.com</b> / <b>admin</b>
+            </p>
+        </form>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            // استدعاء دالة الدخول من ملف auth.js
+            login(email, password);
+        });
+    </script>
+</body>
+</html>
