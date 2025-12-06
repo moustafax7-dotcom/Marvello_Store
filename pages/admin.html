@@ -4,88 +4,190 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marvello | لوحة التحكم</title>
+    
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* تنسيقات إضافية خاصة بالأدمن فقط */
+        .stat-card {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 5px solid #ddd;
+        }
+        .stat-card h3 { font-size: 14px; color: #7f8c8d; margin-bottom: 5px; }
+        .stat-card h1 { font-size: 28px; color: #2c3e50; margin: 0; }
+        
+        .admin-layout {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        /* القسم اليمين: الطلبات */
+        .orders-section {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        /* القسم اليسار: إدارة المنتجات */
+        .products-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* تنسيق فورم المنتج */
+        .admin-form-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: sticky; /* يفضل ثابت لما تنزل */
+            top: 90px;
+        }
+
+        input, select, textarea {
+            background: #fdfdfd;
+            transition: 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            background: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 75, 43, 0.1);
+        }
+    </style>
 </head>
-<body style="background-color: #f1f2f6;">
+<body style="background-color: #f8f9fa;">
 
     <header style="background: #2c3e50;">
         <div class="container">
             <nav class="navbar">
-                <a href="#" class="logo" style="color: white;">لوحة الإدارة 🛡️</a>
+                <a href="#" class="logo" style="color: white; font-size: 20px;">
+                    <i class="fas fa-shield-alt"></i> لوحة الإدارة
+                </a>
                 <ul class="nav-links">
-                    <li><a href="home.html" style="color: #bdc3c7;">عرض الموقع</a></li>
-                    <li><a href="#" onclick="logout()" style="color: #e74c3c;">تسجيل خروج</a></li>
+                    <li>
+                        <a href="home.html" target="_blank" style="color: #bdc3c7; font-size: 14px;">
+                            <i class="fas fa-external-link-alt"></i> عرض الموقع
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="logout()" style="color: #e74c3c; font-weight: bold;">
+                            <i class="fas fa-sign-out-alt"></i> خروج
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <div class="container" style="margin-top: 30px;">
+    <div class="container" style="margin-top: 30px; margin-bottom: 50px;">
         
         <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
-            <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; border-right: 4px solid #3498db; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                <h3>الطلبات الواردة</h3>
+            <div class="stat-card" style="border-color: #3498db;">
+                <h3><i class="fas fa-shopping-bag"></i> الطلبات الواردة</h3>
                 <h1 id="countOrders">0</h1>
             </div>
-            <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; border-right: 4px solid #2ecc71; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                <h3>إجمالي الأرباح</h3>
-                <h1 id="totalEarnings">0 ج.م</h1>
+            <div class="stat-card" style="border-color: #2ecc71;">
+                <h3><i class="fas fa-money-bill-wave"></i> إجمالي الأرباح</h3>
+                <h1 id="totalEarnings">0</h1>
             </div>
-            <div style="flex: 1; background: white; padding: 20px; border-radius: 8px; border-right: 4px solid #f1c40f; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                <h3>عدد المنتجات</h3>
+            <div class="stat-card" style="border-color: #f1c40f;">
+                <h3><i class="fas fa-box-open"></i> عدد المنتجات</h3>
                 <h1 id="countProducts">0</h1>
             </div>
         </div>
 
-        <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+        <div class="admin-layout">
             
-            <div style="flex: 2; min-width: 300px;">
-                <h2 style="margin-bottom: 15px;">📋 آخر الطلبات</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>العميل</th>
-                            <th>المنتجات</th>
-                            <th>المبلغ</th>
-                            <th>إجراء</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ordersTable">
-                        </tbody>
-                </table>
+            <div class="orders-section">
+                <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                    <h2 style="margin-bottom: 20px; color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                        📋 أحدث الطلبات
+                    </h2>
+                    
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;">#</th>
+                                    <th>بيانات العميل</th>
+                                    <th>المنتجات</th>
+                                    <th>الإجمالي</th>
+                                    <th>حالة الطلب</th>
+                                    <th>إجراء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTable">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
-            <div style="flex: 1; min-width: 300px;">
-                <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow);">
-                    <h3 style="margin-bottom: 15px;">➕ إضافة منتج جديد</h3>
-                    <form id="addProductForm">
-                        <input type="text" id="pName" placeholder="اسم المنتج" required style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
-                        
-                        <input type="number" id="pPrice" placeholder="السعر" required style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
-                        
-                        <select id="pCategory" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
-                            <option value="men">رجالي</option>
-                            <option value="women">حريمي</option>
-                            <option value="accessories">إكسسوارات</option>
-                        </select>
-                        
-                        <input type="text" id="pImage" placeholder="رابط الصورة (اختياري)" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
-                        
-                        <button type="submit" class="btn btn-primary" style="width:100%;">نشر المنتج</button>
-                    </form>
+            <div class="products-section">
+                <div class="admin-form-card">
+                    <h3 style="margin-bottom: 20px; color: var(--secondary);">
+                        <span id="formTitle">➕ منتج جديد</span>
+                    </h3>
                     
-                    <hr style="margin: 20px 0;">
-                    <h4>منتجات مضافة حديثاً:</h4>
-                    <ul id="addedProductsList" style="font-size: 14px; color: #666;"></ul>
+                    <form id="addProductForm">
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-size: 12px; color: #666;">اسم المنتج</label>
+                            <input type="text" id="pName" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-size: 12px; color: #666;">السعر (ج.م)</label>
+                            <input type="number" id="pPrice" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-size: 12px; color: #666;">الوصف</label>
+                            <textarea id="pDesc" rows="2" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"></textarea>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <label style="font-size: 12px; color: #666;">القسم</label>
+                            <select id="pCategory" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                                <option value="men">رجالي</option>
+                                <option value="women">حريمي</option>
+                                <option value="kids">أطفال</option>
+                                <option value="accessories">إكسسوارات</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <label style="font-size: 12px; color: #666;">رابط الصورة</label>
+                            <input type="text" id="pImage" placeholder="https://..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+
+                        <button type="submit" id="saveBtn" class="btn btn-primary" style="width: 100%; padding: 12px;">نشر المنتج</button>
+                        
+                        <button type="button" id="cancelBtn" onclick="resetForm()" style="display: none; width: 100%; margin-top: 10px; background: #95a5a6; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">
+                            إلغاء
+                        </button>
+                    </form>
+
+                    <hr style="margin: 25px 0; border-color: #eee;">
+
+                    <h4 style="margin-bottom: 15px; font-size: 14px;">📦 منتجاتك المضافة:</h4>
+                    <ul id="addedProductsList" style="list-style: none; max-height: 300px; overflow-y: auto;">
+                        </ul>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <script src="../js/auth.js"></script> <script src="../js/admin.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/admin.js"></script>
 </body>
 </html>
