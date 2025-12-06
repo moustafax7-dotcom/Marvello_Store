@@ -21,7 +21,7 @@ function registerUser(name, email, password) {
 // 2. تسجيل الدخول (معدلة لتقبل الأدمن والعملاء)
 function login(email, password) {
     // أ) هل هو الأدمن؟
-    if (email === 'admin@gmail.com' && password === 'admin') {
+    if (email === 'moustafa.mahmoudx7@gmail.com' && password === 'Moustafa7112005') {
         const adminData = { name: 'Admin', email: email, role: 'admin' };
         localStorage.setItem('marvelloUser', JSON.stringify(adminData));
         window.location.href = 'pages/admin.html';
@@ -61,4 +61,5 @@ function checkLogin() {
 function logout() {
     localStorage.removeItem('marvelloUser');
     window.location.href = '../index.html';
+
 }
