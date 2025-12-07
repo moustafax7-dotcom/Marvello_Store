@@ -1,10 +1,5 @@
 // js/cart.js
-
-const SHIPPING_FEES = 50; // مصاريف الشحن 50 جنية
-
-document.addEventListener('DOMContentLoaded', () => {
-    renderCartPage();
-});
+document.addEventListener('DOMContentLoaded', () => { renderCartPage(); });
 
 function renderCartPage() {
     const tableBody = document.getElementById('cartTableBody');
@@ -13,115 +8,100 @@ function renderCartPage() {
     const finalTotalEl = document.getElementById('finalTotalPrice');
     
     let cart = JSON.parse(localStorage.getItem('marvelloCart')) || [];
-    
-    tableBody.innerHTML = '';
+    tableBody.innerHTML = ''; 
     let subTotal = 0;
 
-    if (cart.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px;">السلة فارغة 🛒</td></tr>';
-        if(finalTotalEl) finalTotalEl.innerText = '0';
-        return;
-    }
+    if (cart.length === 0) { tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px;">السلة فارغة 🛒</td></tr>'; if(finalTotalEl) finalTotalEl.innerText='0'; return; }
 
     cart.forEach((item, index) => {
         const itemTotal = item.price * (item.quantity || 1);
         subTotal += itemTotal;
+        // عرض المقاس واللون المختار
+        let variantInfo = "";
+        if(item.selectedSize) variantInfo += ` | مقاس: ${item.selectedSize}`;
+        if(item.selectedColor) variantInfo += ` | لون: ${item.selectedColor}`;
 
-        tableBody.innerHTML += `
-            <tr>
-                <td><img src="${item.image}" style="width:40px; vertical-align:middle"> ${item.name}</td>
-                <td>${item.price}</td>
-                <td>
-                    <button onclick="updateQuantity(${index}, -1)" style="width:25px">-</button>
-                    ${item.quantity || 1}
-                    <button onclick="updateQuantity(${index}, 1)" style="width:25px">+</button>
-                </td>
-                <td>${itemTotal}</td>
-                <td><i class="fas fa-trash" onclick="removeFromCart(${index})" style="color:red; cursor:pointer"></i></td>
-            </tr>
-        `;
+        tableBody.innerHTML += `<tr>
+            <td>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <img src="${item.images ? item.images[0] : item.image}" style="width:40px;"> 
+                    <div>${item.name} <span style="font-size:11px; color:#555;">${variantInfo}</span></div>
+                </div>
+            </td>
+            <td>${item.price}</td>
+            <td><button onclick="updQty(${index},-1)">-</button> ${item.quantity} <button onclick="updQty(${index},1)">+</button></td>
+            <td>${itemTotal}</td>
+            <td><i class="fas fa-trash" onclick="rmItem(${index})" style="color:red; cursor:pointer;"></i></td>
+        </tr>`;
     });
 
-    // الحسابات المالية
-    if(subTotalEl) subTotalEl.innerText = subTotal;
-    if(shippingEl) shippingEl.innerText = SHIPPING_FEES;
-    if(finalTotalEl) finalTotalEl.innerText = subTotal + SHIPPING_FEES;
-}
-
-// زرار تحديد الموقع الجغرافي
-window.getLocation = function() {
-    const status = document.getElementById('locationStatus');
-    const input = document.getElementById('cLocation');
+    // منطق الشحن المجاني (لو أول طلب)
+    const user = JSON.parse(localStorage.getItem('marvelloUser'));
+    const allOrders = JSON.parse(localStorage.getItem('marvelloOrders')) || [];
+    // لو مفيش ايميل بنعتبره مش أول طلب احتياطياً، أو ممكن نعتبره أول طلب
+    const previousOrders = allOrders.filter(o => o.customer?.name === user?.name); 
     
-    if (!navigator.geolocation) {
-        status.innerText = "المتصفح لا يدعم تحديد الموقع";
-        return;
+    let shipping = 50;
+    let shipText = "50 ج.م";
+    
+    if(previousOrders.length === 0) {
+        shipping = 0;
+        shipText = "<span style='color:green; text-decoration:line-through;'>50</span> <span style='color:#b12704; font-weight:bold;'>مجاني (أول طلب)</span>";
     }
 
-    status.innerText = "جاري تحديد مكانك...";
-    
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-            // بنعمل لينك لجوجل ماب
-            const mapLink = `https://www.google.com/maps?q=${lat},${lng}`;
-            input.value = mapLink;
-            status.innerHTML = '<span style="color:green">تم تحديد موقعك بنجاح ✅</span>';
-        },
-        () => {
-            status.innerText = "تعذر الوصول للموقع. اكتب العنوان يدوياً.";
-        }
-    );
+    if(subTotalEl) subTotalEl.innerText = subTotal;
+    if(shippingEl) shippingEl.innerHTML = shipText;
+    if(finalTotalEl) finalTotalEl.innerText = subTotal + shipping;
 }
 
-// إتمام الطلب
 document.getElementById('checkoutForm')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    let cart = JSON.parse(localStorage.getItem('marvelloCart')) || [];
+    const payMethod = document.querySelector('input[name="payment"]:checked').value;
     
-    if (cart.length === 0) return alert('السلة فارغة');
+    if(payMethod === 'visa') {
+        const card = prompt("⚠️ محاكاة الدفع: أدخل رقم البطاقة (وهمي):");
+        if(card) processOrder('Visa');
+    } else {
+        processOrder('Cash');
+    }
+});
 
-    const subTotal = parseFloat(document.getElementById('subTotalPrice').innerText);
-    const total = subTotal + SHIPPING_FEES;
-
+function processOrder(method) {
+    let cart = JSON.parse(localStorage.getItem('marvelloCart'));
+    const total = document.getElementById('finalTotalPrice').innerText; // ناخد الرقم النهائي
+    
     const order = {
         id: Date.now(),
         date: new Date().toLocaleString(),
-        status: 'جاري المراجعة 🕒', // الحالة الافتراضية
+        status: 'قيد المراجعة',
+        paymentMethod: method,
         customer: {
             name: document.getElementById('cName').value,
             phone: document.getElementById('cPhone').value,
             address: document.getElementById('cAddress').value,
-            locationMap: document.getElementById('cLocation').value // اللوكيشن
+            locationMap: document.getElementById('cLocation').value
         },
         items: cart,
         totalAmount: total
     };
 
+    // حفظ الطلب
     let orders = JSON.parse(localStorage.getItem('marvelloOrders')) || [];
     orders.push(order);
     localStorage.setItem('marvelloOrders', JSON.stringify(orders));
+    
+    // خصم المخزون
+    let products = JSON.parse(localStorage.getItem('marvelloProducts'));
+    cart.forEach(cItem => {
+        let p = products.find(prod => prod.id == cItem.id);
+        if(p) p.stock -= cItem.quantity;
+    });
+    localStorage.setItem('marvelloProducts', JSON.stringify(products));
+
     localStorage.removeItem('marvelloCart');
-
-    alert(`تم الطلب! الإجمالي بالشحن: ${total} ج.م`);
+    alert(`تم الطلب بنجاح! الدفع: ${method}`);
     window.location.href = 'home.html';
-});
+}
 
-// دوال المساعدة (الكمية والحذف) زي ما هي...
-window.updateQuantity = function(index, change) {
-    let cart = JSON.parse(localStorage.getItem('marvelloCart')) || [];
-    if (cart[index].quantity + change > 0) {
-        cart[index].quantity += change;
-        localStorage.setItem('marvelloCart', JSON.stringify(cart));
-        renderCartPage();
-        updateCartCount();
-    }
-}
-window.removeFromCart = function(index) {
-    let cart = JSON.parse(localStorage.getItem('marvelloCart')) || [];
-    cart.splice(index, 1);
-    localStorage.setItem('marvelloCart', JSON.stringify(cart));
-    renderCartPage();
-    updateCartCount();
-}
+window.updQty = function(i,c){let ct=JSON.parse(localStorage.getItem('marvelloCart')); if(ct[i].quantity+c>0){ct[i].quantity+=c; localStorage.setItem('marvelloCart',JSON.stringify(ct)); renderCartPage();}}
+window.rmItem = function(i){let ct=JSON.parse(localStorage.getItem('marvelloCart')); ct.splice(i,1); localStorage.setItem('marvelloCart',JSON.stringify(ct)); renderCartPage();}
