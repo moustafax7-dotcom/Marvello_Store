@@ -1,94 +1,56 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marvello | سلة المشتريات</title>
-    
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السلة والدفع</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <a href="home.html" class="logo" style="font-size: 24px; font-weight: bold; color: var(--primary);">Marvello</a>
-                <ul class="nav-links">
-                    <li><a href="home.html">الرئيسية</a></li>
-                    <li><a href="cart.html" style="color: var(--primary); font-weight: bold;">السلة</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <div class="container" style="margin-top: 40px;">
-        <h2 style="margin-bottom: 20px;"><i class="fas fa-shopping-bag"></i> سلة مشترياتك</h2>
-        
-        <div style="display: flex; flex-wrap: wrap; gap: 30px;">
-            
-            <div style="flex: 2; min-width: 300px;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>المنتج</th>
-                            <th>السعر</th>
-                            <th>الكمية</th>
-                            <th>المجموع</th>
-                            <th>حذف</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cartTableBody">
-                        </tbody>
-                </table>
-                
-                <div style="background:white; padding:20px; margin-top:20px; border-radius:10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-                    <p style="font-size: 16px; margin-bottom: 10px;">المجموع الفرعي: <span id="subTotalPrice">0</span> ج.م</p>
-                    <p style="font-size: 16px; margin-bottom: 10px;">مصاريف الشحن: <span id="shippingPrice">50</span> ج.م</p>
-                    <hr style="margin: 10px 0; border-color: #eee;">
-                    <h3 style="color:var(--primary); font-size: 22px;">الإجمالي الكلي: <span id="finalTotalPrice">0</span> ج.م</h3>
+    <header><div class="container"><div class="navbar"><div class="logo">Marvello</div><div class="nav-links"><a href="home.html">الرئيسية</a></div></div></div></header>
+    
+    <div class="container" style="margin-top:20px;">
+        <div style="display:flex; flex-wrap:wrap; gap:20px;">
+            <div style="flex:2; min-width:300px;">
+                <div style="background:white; padding:15px; border-radius:4px;">
+                    <table style="width:100%;">
+                        <tbody id="cartTableBody"></tbody>
+                    </table>
                 </div>
             </div>
 
-            <div style="flex: 1; min-width: 300px;">
-                <div class="product-card" style="padding: 20px; text-align: right;">
-                    <h3 style="margin-bottom: 20px; text-align: center; color: var(--secondary);">بيانات التوصيل</h3>
+            <div style="flex:1; min-width:300px;">
+                <div style="background:white; padding:20px; border-radius:4px;">
+                    <h3>ملخص الطلب</h3>
+                    <p>المجموع: <span id="subTotalPrice">0</span></p>
+                    <p>الشحن: <span id="shippingPrice">50</span></p>
+                    <h2 style="color:#b12704;">الإجمالي: <span id="finalTotalPrice">0</span></h2>
                     
-                    <form id="checkoutForm">
-                        <label style="display:block; margin-bottom:5px;">الاسم بالكامل</label>
-                        <input type="text" id="cName" placeholder="اكتب اسمك هنا" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px;">
-                        
-                        <label style="display:block; margin-bottom:5px;">رقم الهاتف</label>
-                        <input type="tel" id="cPhone" placeholder="01xxxxxxxxx" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px;">
-                        
-                        <label style="display:block; margin-bottom:5px;">العنوان بالتفصيل</label>
-                        <input type="text" id="cAddress" placeholder="الشارع، رقم العمارة، الشقة" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px;">
-                        
-                        <div style="margin-bottom: 20px; background: #f9f9f9; padding: 10px; border-radius: 5px;">
-                            <label style="display:block; margin-bottom:5px;">الموقع الجغرافي (GPS)</label>
-                            <button type="button" onclick="getLocation()" style="background:#27ae60; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer; width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
-                                <i class="fas fa-map-marker-alt"></i> تحديد موقعي الحالي
-                            </button>
-                            <p id="locationStatus" style="font-size:12px; color:#666; margin-top:5px; text-align:center;"></p>
-                            <input type="hidden" id="cLocation">
+                    <form id="checkoutForm" style="margin-top:20px;">
+                        <h4>بيانات التوصيل</h4>
+                        <input type="text" id="cName" placeholder="الاسم" required style="width:100%; padding:8px; margin-bottom:10px;">
+                        <input type="tel" id="cPhone" placeholder="الهاتف" required style="width:100%; padding:8px; margin-bottom:10px;">
+                        <input type="text" id="cAddress" placeholder="العنوان" required style="width:100%; padding:8px; margin-bottom:10px;">
+                        <button type="button" onclick="getLocation()" style="width:100%; padding:8px; margin-bottom:10px;">📍 موقعي</button>
+                        <input type="hidden" id="cLocation">
+
+                        <h4>طريقة الدفع</h4>
+                        <div class="payment-methods">
+                            <label class="payment-label">
+                                <input type="radio" name="payment" value="cash" checked> كاش 💵
+                            </label>
+                            <label class="payment-label">
+                                <input type="radio" name="payment" value="visa"> فيزا 💳
+                            </label>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 16px;">تأكيد الطلب الآن</button>
+                        <button type="submit" class="btn-primary" style="width:100%; padding:10px;">تأكيد الطلب</button>
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
-
-    <script src="../js/auth.js"></script>
-    <script src="../js/script.js"></script>
-    <script src="../js/cart.js"></script>
-    
-    <script>
-        checkLogin();
-        updateCartCount();
-    </script>
+    <script src="../js/auth.js"></script><script src="../js/script.js"></script><script src="../js/cart.js"></script>
+    <script>updateCartCount();</script>
 </body>
 </html>
