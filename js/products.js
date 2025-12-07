@@ -1,88 +1,49 @@
 // js/products.js
-
 let allProducts = [];
 
-// جلب المنتجات عند تحميل الصفحة
 async function loadProducts() {
-    const grid = document.getElementById('productsGrid');
-    if(!grid) return; // لو مش في صفحة المنتجات اخرج
-
-    grid.innerHTML = '<p style="text-align:center; width:100%;">جاري تحميل المنتجات...</p>';
-
+    const grid = document.getElementById('productsGrid'); 
+    if(!grid) return;
+    grid.innerHTML = '<p style="text-align:center;">جاري التحميل...</p>';
     try {
-        // 1. محاولة جلب البيانات من ملف JSON
-        const response = await fetch('../data/products.json');
-        const jsonData = await response.json();
-        
-        // 2. جلب المنتجات المضاف من الأدمن (Local Storage)
-        const localData = JSON.parse(localStorage.getItem('marvelloProducts')) || [];
-        
-        // 3. دمج الاثنين
-        allProducts = [...jsonData, ...localData];
-        
-        // 4. عرض النتيجة
+        const res = await fetch('../data/products.json'); 
+        const json = await res.json();
+        const local = JSON.parse(localStorage.getItem('marvelloProducts')) || [];
+        allProducts = [...json, ...local]; 
         renderProducts(allProducts);
-
-    } catch (error) {
-        console.error("Error:", error);
-        grid.innerHTML = '<p>حدث خطأ في تحميل البيانات.</p>';
-    }
+    } catch (e) { grid.innerHTML = '<p>خطأ</p>'; }
 }
 
-// دالة رسم المنتجات في الشاشة
-function renderProducts(products) {
-    const grid = document.getElementById('productsGrid');
-    if(!grid) return;
-
-    grid.innerHTML = '';
-
-    if(products.length === 0) {
-        grid.innerHTML = '<p style="text-align:center;">لا توجد منتجات مطابقة.</p>';
-        return;
-    }
-
-    products.forEach(product => {
-        // التأكد من المفضلة
-        const wishlist = JSON.parse(localStorage.getItem('marvelloWishlist')) || [];
-        const isLoved = wishlist.includes(product.id) ? 'active' : '';
+function renderProducts(list) {
+    const grid = document.getElementById('productsGrid'); grid.innerHTML = '';
+    if(list.length===0) { grid.innerHTML = '<p>لا توجد نتائج</p>'; return; }
+    list.forEach(p => {
+        // حساب الخصم
+        let priceBlock = `<span class="price">${p.price} ج.م</span>`;
+        if(p.oldPrice && p.oldPrice > p.price) {
+            priceBlock = `
+                <div style="display:flex; align-items:center; justify-content:center; gap:5px;">
+                    <span style="text-decoration:line-through; color:#777; font-size:13px;">${p.oldPrice}</span>
+                    <span class="price" style="margin:0;">${p.price} ج.م</span>
+                </div>
+            `;
+        }
 
         grid.innerHTML += `
-            <div class="product-card">
-                <div class="wishlist-icon ${isLoved}" onclick="toggleWishlist(${product.id}, this)">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <div class="product-image-container">
-                    <img src="${product.image}" alt="${product.name}">
-                </div>
+            <div class="product-card" onclick="window.location.href='product-details.html?id=${p.id}'">
+                <div class="product-image-container"><img src="${p.images ? p.images[0] : p.image}" alt="${p.name}"></div>
                 <div class="card-body">
-                    <h3>${product.name}</h3>
-                    <span class="price">${product.price} ج.م</span>
-                    <button class="btn btn-primary" onclick="addToCart(${product.id})" style="width:100%">
-                        <i class="fas fa-cart-plus"></i> إضافة للسلة
-                    </button>
+                    <h3>${p.name}</h3>
+                    ${priceBlock}
+                    <button class="btn btn-primary" style="width:100%">عرض التفاصيل</button>
                 </div>
-            </div>
-        `;
+            </div>`;
     });
 }
-
-// البحث
-function searchProducts(query) {
-    const lowerQuery = query.toLowerCase();
-    const filtered = allProducts.filter(p => p.name.toLowerCase().includes(lowerQuery));
-    renderProducts(filtered);
-}
-
-// الفلترة
-function filterCategory(category, btn) {
-    // تحديث شكل الأزرار
-    document.querySelectorAll('.categories-btn-group button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    if (category === 'all') {
-        renderProducts(allProducts);
-    } else {
-        const filtered = allProducts.filter(p => p.category === category);
-        renderProducts(filtered);
-    }
+// باقي دوال البحث والفلتر زي ما هي...
+function searchProducts(q) { renderProducts(allProducts.filter(p => p.name.includes(q))); }
+function filterCategory(c, btn) {
+    document.querySelectorAll('.categories-btn-group button').forEach(b => b.classList.remove('active')); 
+    if(btn) btn.classList.add('active');
+    renderProducts(c === 'all' ? allProducts : allProducts.filter(p => p.category === c));
 }
