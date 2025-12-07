@@ -1,38 +1,111 @@
-/* css/responsive.css */
+/* css/responsive.css - تظبيط الموبايل */
 
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        height: auto;
-        padding: 15px 0;
-    }
-
-    .nav-links {
-        margin-top: 15px;
-        font-size: 14px;
-    }
-
-    .filters-bar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .search-wrapper {
+    /* 1. الحاوية: نسيب مسافة صغيرة من الجناب عشان الكلام ملزقش */
+    .container {
+        padding: 0 15px;
         width: 100%;
     }
 
+    /* 2. الهيدر (الشريط اللي فوق) */
+    .navbar {
+        flex-direction: row; /* يفضلوا جنب بعض */
+        justify-content: space-between;
+        padding: 10px 0;
+        height: auto;
+    }
+
+    .logo {
+        font-size: 20px !important; /* تصغير اللوجو شوية */
+    }
+
+    .nav-links {
+        gap: 10px; /* تقليل المسافة بين الروابط */
+    }
+
+    .nav-links a {
+        font-size: 14px; /* تصغير الخط */
+        padding: 5px;
+    }
+
+    /* 3. شريط البحث والفلتر */
+    .filters-bar {
+        padding: 15px;
+        gap: 10px;
+        margin: 15px 0;
+    }
+
+    .search-wrapper {
+        min-width: 100%; /* البحث ياخد العرض كله */
+    }
+
     .categories-btn-group {
-        display: flex;
-        overflow-x: auto;
-        padding-bottom: 10px;
+        width: 100%;
+        overflow-x: auto; /* لو الأزرار كتير نعمل سكرول بالعرض */
+        padding-bottom: 5px;
+        justify-content: start; /* نبدأ من اليمين */
     }
     
     .categories-btn-group button {
-        white-space: nowrap;
+        white-space: nowrap; /* الكلام ميتكسرش */
+        font-size: 13px;
+        padding: 6px 15px;
     }
 
-    table {
+    /* 4. شبكة المنتجات (أهم جزء) - منتجين في السطر */
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr); /* عمودين بدل واحد */
+        gap: 15px; /* مسافة أصغر بين الكروت */
+    }
+
+    /* 5. كرت المنتج المصغر للموبايل */
+    .product-image-container {
+        height: 180px; /* تقليل ارتفاع الصورة */
+    }
+
+    .card-body {
+        padding: 12px; /* تقليل الحشو الداخلي */
+    }
+
+    .card-body h3 {
+        font-size: 14px !important; /* تصغير اسم المنتج */
+        margin-bottom: 5px;
+    }
+
+    .price {
+        font-size: 16px !important;
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        font-size: 12px; /* زرار الإضافة يكون أصغر */
+        padding: 8px 15px;
+        width: 100%;
+    }
+    
+    /* 6. السلة والجدول */
+    table thead {
+        display: none; /* نخفي العناوين في الموبايل */
+    }
+    
+    table, table tbody, table tr, table td {
         display: block;
-        overflow-x: auto;
+        width: 100%;
+    }
+    
+    table tr {
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 10px;
+    }
+    
+    table td {
+        text-align: right;
+        padding: 5px 0;
+        border: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }
