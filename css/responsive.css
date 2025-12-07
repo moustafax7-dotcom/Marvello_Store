@@ -1,109 +1,173 @@
-/* css/responsive.css - تظبيط الموبايل */
+/* css/responsive.css - Amazon Style Mobile UI */
 
 @media (max-width: 768px) {
-    /* 1. الحاوية: نسيب مسافة صغيرة من الجناب عشان الكلام ملزقش */
+    /* 1. الحاوية العامة */
     .container {
-        padding: 0 15px;
+        padding: 0 10px; /* تقليل الهوامش لاستغلال الشاشة */
         width: 100%;
     }
 
-    /* 2. الهيدر (الشريط اللي فوق) */
-    .navbar {
-        flex-direction: row; /* يفضلوا جنب بعض */
-        justify-content: space-between;
+    /* 2. الهيدر (الشريط العلوي) - ستايل أمازون */
+    header {
+        background: #232f3e; /* لون غامق زي أمازون (اختياري، ممكن تسيبه أبيض) */
         padding: 10px 0;
-        height: auto;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .navbar {
+        flex-wrap: wrap; /* عشان العناصر تنزل تحت بعض لو مفيش مكان */
+        gap: 10px;
     }
 
     .logo {
-        font-size: 20px !important; /* تصغير اللوجو شوية */
+        font-size: 18px !important;
+        color: white !important; /* لو الهيدر غامق */
+        flex-grow: 1; /* ياخد مساحة */
     }
 
+    /* أيقونات الهيدر (السلة والخروج) */
     .nav-links {
-        gap: 10px; /* تقليل المسافة بين الروابط */
+        gap: 15px;
     }
-
     .nav-links a {
-        font-size: 14px; /* تصغير الخط */
-        padding: 5px;
+        color: white !important;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .nav-links i {
+        font-size: 18px;
+        margin-bottom: 2px;
     }
 
-    /* 3. شريط البحث والفلتر */
+    /* 3. شريط البحث والفلتر (تحت الهيدر مباشرة) */
     .filters-bar {
-        padding: 15px;
-        gap: 10px;
-        margin: 15px 0;
+        background: white; /* خلي الخلفية بيضاء عشان تبرز */
+        margin: 0 0 15px 0;
+        padding: 10px;
+        border-radius: 0 0 10px 10px; /* تدوير من تحت بس */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        position: sticky;
+        top: 60px; /* يلزق تحت الهيدر لما تنزل */
+        z-index: 999;
     }
 
     .search-wrapper {
-        min-width: 100%; /* البحث ياخد العرض كله */
+        margin-bottom: 10px;
+    }
+    .search-wrapper input {
+        border-radius: 8px; /* تدوير خفيف زي أمازون */
+        padding: 10px 35px 10px 10px;
+        background: #f0f2f5; /* لون رمادي فاتح جداً */
+        border: 1px solid #ddd;
     }
 
+    /* أزرار الفلتر (تتحرك يمين وشمال Scroll) */
     .categories-btn-group {
-        width: 100%;
-        overflow-x: auto; /* لو الأزرار كتير نعمل سكرول بالعرض */
+        justify-content: flex-start;
+        overflow-x: auto;
         padding-bottom: 5px;
-        justify-content: start; /* نبدأ من اليمين */
+        /* إخفاء شريط السكرول للشكل الجمالي */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+    .categories-btn-group::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
     }
     
     .categories-btn-group button {
-        white-space: nowrap; /* الكلام ميتكسرش */
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        padding: 6px 14px;
         font-size: 13px;
-        padding: 6px 15px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        flex-shrink: 0; /* يمنع انكماش الأزرار */
+    }
+    .categories-btn-group button.active {
+        background: #232f3e; /* نفس لون الهيدر */
+        color: white;
+        border-color: #232f3e;
     }
 
-    /* 4. شبكة المنتجات (أهم جزء) - منتجين في السطر */
+    /* 4. شبكة المنتجات (المهمة) */
     .products-grid {
-        grid-template-columns: repeat(2, 1fr); /* عمودين بدل واحد */
-        gap: 15px; /* مسافة أصغر بين الكروت */
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* منتجين جنب بعض */
+        gap: 8px; /* مسافة صغيرة جداً زي التطبيقات */
+        padding-bottom: 60px;
     }
 
-    /* 5. كرت المنتج المصغر للموبايل */
+    .product-card {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        box-shadow: none; /* شيلنا الظل عشان يبقى فلات ونضيف */
+    }
+
     .product-image-container {
-        height: 180px; /* تقليل ارتفاع الصورة */
+        height: 160px; /* صورة مربعة تقريباً */
     }
-
+    
     .card-body {
-        padding: 12px; /* تقليل الحشو الداخلي */
+        padding: 10px;
+        text-align: right; /* محاذاة لليمين زي أمازون العربي */
     }
 
     .card-body h3 {
-        font-size: 14px !important; /* تصغير اسم المنتج */
+        font-size: 13px !important;
+        height: 36px; /* سطرين بالظبط */
+        overflow: hidden;
+        line-height: 1.4;
         margin-bottom: 5px;
+        color: #333;
     }
 
     .price {
         font-size: 16px !important;
-        margin-bottom: 10px;
+        color: #B12704 !important; /* لون السعر الأحمر المميز لأمازون */
+        font-weight: bold;
+        margin-bottom: 8px;
     }
 
     .btn {
-        font-size: 12px; /* زرار الإضافة يكون أصغر */
-        padding: 8px 15px;
         width: 100%;
+        padding: 8px 0;
+        font-size: 12px;
+        border-radius: 20px;
+        background: #f0c14b; /* أصفر أمازون */
+        border: 1px solid #a88734;
+        color: #111;
     }
     
-    /* 6. السلة والجدول */
-    table thead {
-        display: none; /* نخفي العناوين في الموبايل */
+    /* 5. أيقونة القلب (صغيرة وفوق) */
+    .wishlist-icon {
+        width: 28px;
+        height: 28px;
+        top: 8px;
+        left: 8px;
+    }
+    .wishlist-icon i {
+        font-size: 14px;
     }
     
-    table, table tbody, table tr, table td {
-        display: block;
-        width: 100%;
-    }
-    
-    table tr {
+    /* تحسينات الجدول في صفحة السلة */
+    table thead { display: none; }
+    table, tbody, tr, td { display: block; width: 100%; }
+    tr {
         margin-bottom: 15px;
-        border: 1px solid #eee;
+        background: #fff;
+        padding: 15px;
         border-radius: 8px;
-        padding: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
-    
-    table td {
+    td {
         text-align: right;
-        padding: 5px 0;
         border: none;
+        padding: 5px 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
