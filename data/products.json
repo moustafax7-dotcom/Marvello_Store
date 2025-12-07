@@ -3,48 +3,108 @@
         "id": 1,
         "name": "تيشيرت كلاسيك أسود",
         "price": 250,
+        "oldPrice": 350,
+        "stock": 15,
         "category": "men",
-        "image": "https://placehold.co/300x300/111/fff?text=T-Shirt+Black",
-        "description": "تيشيرت قطني مريح جداً"
+        "images": [
+            "https://placehold.co/500x500/111/fff?text=T-Shirt+Black+1",
+            "https://placehold.co/500x500/222/fff?text=T-Shirt+Black+2",
+            "https://placehold.co/500x500/333/fff?text=T-Shirt+Black+3"
+        ],
+        "description": "تيشيرت قطني 100% مريح جداً وعالي الجودة، مناسب لجميع الفصول. يتميز بتصميم بسيط وأنيق يناسب جميع الأعمار.",
+        "sizes": ["S", "M", "L", "XL"],
+        "colors": ["أسود", "أبيض", "رمادي"],
+        "video": "",
+        "reviews": []
     },
     {
         "id": 2,
         "name": "فستان صيفي أزرق",
         "price": 500,
+        "oldPrice": 650,
+        "stock": 8,
         "category": "women",
-        "image": "https://placehold.co/300x300/e91e63/fff?text=Summer+Dress",
-        "description": "فستان خفيف للصيف"
+        "images": [
+            "https://placehold.co/500x500/e91e63/fff?text=Summer+Dress+1",
+            "https://placehold.co/500x500/f06292/fff?text=Summer+Dress+2",
+            "https://placehold.co/500x500/ec407a/fff?text=Summer+Dress+3"
+        ],
+        "description": "فستان خفيف وأنيق مثالي للصيف، مصنوع من قماش قطني ناعم يوفر راحة عالية. التصميم عصري وملائم لجميع المناسبات الصيفية.",
+        "sizes": ["XS", "S", "M", "L", "XL"],
+        "colors": ["أزرق", "وردي", "أبيض"],
+        "video": "",
+        "reviews": []
     },
     {
         "id": 3,
         "name": "ساعة ذكية رياضية",
         "price": 1200,
+        "oldPrice": 1500,
+        "stock": 12,
         "category": "accessories",
-        "image": "https://placehold.co/300x300/2c3e50/fff?text=Smart+Watch",
-        "description": "ساعة تقيس نبضات القلب والخطوات"
+        "images": [
+            "https://placehold.co/500x500/2c3e50/fff?text=Smart+Watch+1",
+            "https://placehold.co/500x500/34495e/fff?text=Smart+Watch+2",
+            "https://placehold.co/500x500/2c3e50/fff?text=Smart+Watch+3"
+        ],
+        "description": "ساعة ذكية متقدمة تقيس نبضات القلب والخطوات والسعرات الحرارية. تتميز بشاشة AMOLED عالية الجودة وبطارية تدوم 7 أيام. مقاومة للماء حتى 50 متر.",
+        "sizes": [],
+        "colors": ["أسود", "فضي", "ذهبي"],
+        "video": "",
+        "reviews": []
     },
     {
         "id": 4,
         "name": "جاكيت جينز",
         "price": 650,
+        "oldPrice": 850,
+        "stock": 10,
         "category": "men",
-        "image": "https://placehold.co/300x300/3498db/fff?text=Jeans+Jacket",
-        "description": "جاكيت جينز أزرق فاتح"
+        "images": [
+            "https://placehold.co/500x500/3498db/fff?text=Jeans+Jacket+1",
+            "https://placehold.co/500x500/2980b9/fff?text=Jeans+Jacket+2",
+            "https://placehold.co/500x500/1f618d/fff?text=Jeans+Jacket+3"
+        ],
+        "description": "جاكيت جينز أزرق فاتح من أفضل الخامات، يتميز بتصميم كلاسيكي عصري. مناسب لجميع الفصول ويمكن دمجه مع أي ملابس.",
+        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "colors": ["أزرق فاتح", "أزرق داكن", "أسود"],
+        "video": "",
+        "reviews": []
     },
     {
         "id": 5,
         "name": "حقيبة جلدية",
         "price": 400,
+        "oldPrice": 550,
+        "stock": 20,
         "category": "women",
-        "image": "https://placehold.co/300x300/d35400/fff?text=Leather+Bag",
-        "description": "حقيبة يد واسعة"
+        "images": [
+            "https://placehold.co/500x500/d35400/fff?text=Leather+Bag+1",
+            "https://placehold.co/500x500/e67e22/fff?text=Leather+Bag+2",
+            "https://placehold.co/500x500/d35400/fff?text=Leather+Bag+3"
+        ],
+        "description": "حقيبة يد جلدية واسعة وعملية، مصنوعة من جلد طبيعي عالي الجودة. توفر مساحة كبيرة للأشياء اليومية وتتميز بتصميم أنيق وكلاسيكي.",
+        "sizes": [],
+        "colors": ["بني", "أسود", "كريمي"],
+        "video": "",
+        "reviews": []
     },
     {
         "id": 6,
         "name": "نظارة شمسية",
         "price": 150,
+        "oldPrice": 250,
+        "stock": 25,
         "category": "accessories",
-        "image": "https://placehold.co/300x300/f1c40f/333?text=Sun+Glasses",
-        "description": "حماية كاملة من الأشعة فوق البنفسجية"
+        "images": [
+            "https://placehold.co/500x500/f1c40f/333?text=Sun+Glasses+1",
+            "https://placehold.co/500x500/f39c12/333?text=Sun+Glasses+2",
+            "https://placehold.co/500x500/e67e22/333?text=Sun+Glasses+3"
+        ],
+        "description": "نظارة شمسية عصرية توفر حماية كاملة من الأشعة فوق البنفسجية (UV400). تتميز بعدسات مستقطبة عالية الجودة وإطار متين وخفيف الوزن.",
+        "sizes": [],
+        "colors": ["أسود", "بني", "ذهبي"],
+        "video": "",
+        "reviews": []
     }
 ]

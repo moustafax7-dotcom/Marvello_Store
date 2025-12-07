@@ -9,7 +9,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header><div class="container"><div class="navbar"><div class="logo"><a href="home.html" style="color:white;">Marvello</a></div><div class="nav-links"><a href="cart.html"><i class="fas fa-shopping-cart"></i> السلة</a></div></div></div></header>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="home.html" class="logo" style="font-size: 24px; font-weight: bold; color: white;">Marvello</a>
+                
+                <ul class="nav-links">
+                    <li><a href="home.html">الرئيسية</a></li>
+                    <li>
+                        <a href="cart.html" style="position: relative;">
+                            السلة <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount" style="position: absolute; top: -8px; left: -10px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px;">0</span>
+                        </a>
+                    </li>
+                    <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <div class="container">
         <div id="productDetailsContainer" class="details-container">
@@ -30,12 +47,20 @@
                 <i class="fas fa-star star" data-val="4"></i>
                 <i class="fas fa-star star" data-val="5"></i>
             </div>
-            <textarea id="reviewComment" placeholder="اكتب رأيك بصراحة..." style="width:100%; padding:10px; border:1px solid #ddd;"></textarea>
+            <textarea id="reviewComment" placeholder="اكتب رأيك بصراحة..." style="width:100%; padding:10px; border:1px solid #ddd; border-radius:5px; font-family:'Cairo', sans-serif;"></textarea>
             <button onclick="submitReview()" class="btn-primary" style="margin-top:10px;">إرسال التقييم</button>
         </div>
     </div>
 
     <script src="../js/auth.js"></script>
+    <script src="../js/script.js"></script>
     <script src="../js/product-details.js"></script>
+    
+    <script>
+        window.onload = function() {
+            checkLogin();
+            updateCartCount();
+        };
+    </script>
 </body>
 </html>

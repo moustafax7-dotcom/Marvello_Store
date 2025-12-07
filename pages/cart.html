@@ -1,56 +1,319 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>السلة والدفع</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        .cart-table th {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            text-align: right;
+            font-weight: 600;
+        }
+        
+        .cart-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qty-controls button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        
+        .qty-controls button:hover {
+            background: #e68a00;
+            transform: scale(1.1);
+        }
+        
+        .order-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 100px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-row:last-child {
+            border-bottom: none;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--red);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid #eee;
+        }
+        
+        .checkout-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.1);
+        }
+        
+        .payment-options {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .payment-option {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--primary);
+            background: #fffcf5;
+        }
+        
+        .payment-option input[type="radio"] {
+            width: auto;
+            margin: 0;
+        }
+        
+        .payment-option input[type="radio"]:checked + label {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        .empty-cart i {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .empty-cart h2 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .empty-cart p {
+            color: #777;
+            margin-bottom: 20px;
+        }
+        
+        .empty-cart a {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .empty-cart a:hover {
+            background: #e68a00;
+        }
+    </style>
 </head>
 <body>
-    <header><div class="container"><div class="navbar"><div class="logo">Marvello</div><div class="nav-links"><a href="home.html">الرئيسية</a></div></div></div></header>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="home.html" class="logo" style="font-size: 24px; font-weight: bold; color: white;">Marvello</a>
+                
+                <ul class="nav-links">
+                    <li><a href="home.html">الرئيسية</a></li>
+                    <li>
+                        <a href="cart.html" style="position: relative;">
+                            السلة <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount" style="position: absolute; top: -8px; left: -10px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px;">0</span>
+                        </a>
+                    </li>
+                    <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
     
-    <div class="container" style="margin-top:20px;">
-        <div style="display:flex; flex-wrap:wrap; gap:20px;">
+    <div class="container" style="margin-top:30px; margin-bottom:30px;">
+        <h1 style="margin-bottom:20px; color: var(--secondary);">🛒 سلتك</h1>
+        
+        <div style="display:flex; flex-wrap:wrap; gap:30px;">
+            <!-- قسم المنتجات -->
             <div style="flex:2; min-width:300px;">
-                <div style="background:white; padding:15px; border-radius:4px;">
-                    <table style="width:100%;">
+                <div style="background:white; padding:20px; border-radius:8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>المنتج</th>
+                                <th>السعر</th>
+                                <th>الكمية</th>
+                                <th>الإجمالي</th>
+                                <th>إجراء</th>
+                            </tr>
+                        </thead>
                         <tbody id="cartTableBody"></tbody>
                     </table>
                 </div>
             </div>
 
+            <!-- قسم الملخص والدفع -->
             <div style="flex:1; min-width:300px;">
-                <div style="background:white; padding:20px; border-radius:4px;">
-                    <h3>ملخص الطلب</h3>
-                    <p>المجموع: <span id="subTotalPrice">0</span></p>
-                    <p>الشحن: <span id="shippingPrice">50</span></p>
-                    <h2 style="color:#b12704;">الإجمالي: <span id="finalTotalPrice">0</span></h2>
+                <div class="order-summary">
+                    <h3 style="margin-bottom:15px; color: var(--secondary);">📋 ملخص الطلب</h3>
                     
-                    <form id="checkoutForm" style="margin-top:20px;">
-                        <h4>بيانات التوصيل</h4>
-                        <input type="text" id="cName" placeholder="الاسم" required style="width:100%; padding:8px; margin-bottom:10px;">
-                        <input type="tel" id="cPhone" placeholder="الهاتف" required style="width:100%; padding:8px; margin-bottom:10px;">
-                        <input type="text" id="cAddress" placeholder="العنوان" required style="width:100%; padding:8px; margin-bottom:10px;">
-                        <button type="button" onclick="getLocation()" style="width:100%; padding:8px; margin-bottom:10px;">📍 موقعي</button>
-                        <input type="hidden" id="cLocation">
-
-                        <h4>طريقة الدفع</h4>
-                        <div class="payment-methods">
-                            <label class="payment-label">
-                                <input type="radio" name="payment" value="cash" checked> كاش 💵
-                            </label>
-                            <label class="payment-label">
-                                <input type="radio" name="payment" value="visa"> فيزا 💳
-                            </label>
-                        </div>
-
-                        <button type="submit" class="btn-primary" style="width:100%; padding:10px;">تأكيد الطلب</button>
-                    </form>
+                    <div class="summary-row">
+                        <span>المجموع الفرعي:</span>
+                        <span id="subTotalPrice">0</span> ج.م
+                    </div>
+                    <div class="summary-row">
+                        <span>الشحن:</span>
+                        <span id="shippingPrice">50</span> ج.م
+                    </div>
+                    <div class="summary-row">
+                        الإجمالي: <span id="finalTotalPrice">0</span> ج.م
+                    </div>
                 </div>
+                
+                <form id="checkoutForm" class="checkout-form">
+                    <h3 style="margin-bottom:15px; color: var(--secondary);">📦 بيانات التوصيل</h3>
+                    
+                    <div class="form-group">
+                        <label for="cName">الاسم الكامل</label>
+                        <input type="text" id="cName" placeholder="أدخل اسمك الكامل" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cPhone">رقم الهاتف</label>
+                        <input type="tel" id="cPhone" placeholder="01xxxxxxxxx" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cAddress">العنوان</label>
+                        <input type="text" id="cAddress" placeholder="المدينة - الحي - الشارع" required>
+                    </div>
+                    
+                    <button type="button" onclick="getLocation()" style="width:100%; padding:10px; margin-bottom:15px; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer; font-family:'Cairo', sans-serif;">
+                        📍 استخدم موقعي الحالي
+                    </button>
+                    <input type="hidden" id="cLocation">
+
+                    <h3 style="margin-bottom:15px; margin-top:20px; color: var(--secondary);">💳 طريقة الدفع</h3>
+                    
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cash" checked>
+                            <label style="margin:0; cursor:pointer;">💵 الدفع عند الاستلام</label>
+                        </label>
+                    </div>
+                    
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="visa">
+                            <label style="margin:0; cursor:pointer;">💳 بطاقة ائتمان</label>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="width:100%; padding:12px; font-size:16px; margin-top:20px;">✅ تأكيد الطلب</button>
+                </form>
             </div>
         </div>
     </div>
-    <script src="../js/auth.js"></script><script src="../js/script.js"></script><script src="../js/cart.js"></script>
-    <script>updateCartCount();</script>
+    
+    <script src="../js/auth.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/cart.js"></script>
+    
+    <script>
+        window.onload = function() {
+            checkLogin();
+            renderCartPage();
+            updateCartCount();
+        };
+        
+        function getLocation() {
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    document.getElementById('cLocation').value = `${lat}, ${lng}`;
+                    showToast('تم تحديد الموقع بنجاح ✅');
+                });
+            } else {
+                showToast('المتصفح لا يدعم تحديد الموقع ❌');
+            }
+        }
+    </script>
 </body>
 </html>

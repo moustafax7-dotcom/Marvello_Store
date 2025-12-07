@@ -193,3 +193,88 @@
     50% { transform: scale(1.3); }
     100% { transform: scale(1); }
 }
+
+
+/* -----------------------------------------
+   تحسينات إضافية للواجهة
+   ----------------------------------------- */
+
+/* تحسين أيقونة المفضلة */
+.wishlist-icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 10;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+
+.wishlist-icon:hover {
+    transform: scale(1.15);
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.wishlist-icon.active {
+    color: #e74c3c;
+    animation: pulse 0.4s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.35); }
+    100% { transform: scale(1); }
+}
+
+/* شارة الخصم */
+.discount-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 8;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* شارة المخزون */
+.stock-badge {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    z-index: 8;
+    backdrop-filter: blur(5px);
+}
+
+.stock-badge.in-stock {
+    background: rgba(39, 174, 96, 0.9);
+    color: white;
+}
+
+.stock-badge.low-stock {
+    background: rgba(241, 196, 15, 0.9);
+    color: #333;
+}
+
+.stock-badge.out-of-stock {
+    background: rgba(192, 57, 43, 0.9);
+    color: white;
+}

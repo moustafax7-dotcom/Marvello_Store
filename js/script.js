@@ -1,8 +1,9 @@
-// js/script.js
+// js/script.js - تحسينات شاملة
 
 // عند تحميل أي صفحة، حدث عداد السلة
 document.addEventListener('DOMContentLoaded', () => {
     updateCartCount();
+    updateWishlistUI();
 });
 
 // إضافة منتج للسلة
@@ -45,6 +46,8 @@ function updateCartCount() {
         // نجمع كميات المنتجات مش بس عدد العناصر
         const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
         countSpan.innerText = totalItems;
+        // إظهار/إخفاء الشارة بناءً على العدد
+        countSpan.style.display = totalItems > 0 ? 'block' : 'none';
     }
 }
 
@@ -54,31 +57,88 @@ function toggleWishlist(id, iconElement) {
     
     if (wishlist.includes(id)) {
         wishlist = wishlist.filter(itemId => itemId !== id);
-        iconElement.classList.remove('active');
+        if(iconElement) iconElement.classList.remove('active');
+        showToast('تم الحذف من المفضلة ❌');
     } else {
         wishlist.push(id);
-        iconElement.classList.add('active');
+        if(iconElement) iconElement.classList.add('active');
+        showToast('تم الإضافة للمفضلة ❤️');
     }
     localStorage.setItem('marvelloWishlist', JSON.stringify(wishlist));
 }
 
-// دالة مساعدة لعمل إشعار سريع
+// تحديث واجهة المفضلة
+function updateWishlistUI() {
+    const wishlist = JSON.parse(localStorage.getItem('marvelloWishlist')) || [];
+    document.querySelectorAll('.wishlist-icon').forEach(icon => {
+        const productId = parseInt(icon.dataset.productId);
+        if(wishlist.includes(productId)) {
+            icon.classList.add('active');
+        } else {
+            icon.classList.remove('active');
+        }
+    });
+}
+
+// دالة مساعدة لعمل إشعار سريع (Toast)
 function showToast(message) {
     // إنشاء عنصر الإشعار لو مش موجود
     let toast = document.createElement('div');
     toast.style.position = 'fixed';
     toast.style.bottom = '20px';
-    toast.style.left = '20px';
+    toast.style.right = '20px';
     toast.style.background = '#333';
     toast.style.color = '#fff';
-    toast.style.padding = '10px 20px';
-    toast.style.borderRadius = '5px';
+    toast.style.padding = '15px 20px';
+    toast.style.borderRadius = '8px';
     toast.style.zIndex = '9999';
+    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+    toast.style.fontFamily = "'Cairo', sans-serif";
+    toast.style.fontSize = '14px';
     toast.innerText = message;
     
     document.body.appendChild(toast);
     
+    // حركة الظهور
+    toast.style.animation = 'slideIn 0.3s ease-in-out';
+    
     setTimeout(() => {
-        toast.remove();
+        toast.style.animation = 'slideOut 0.3s ease-in-out';
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
     }, 3000);
 }
+
+// إضافة الحركات للـ Toast
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// مراقبة التغييرات في localStorage
+window.addEventListener('storage', () => {
+    updateCartCount();
+    updateWishlistUI();
+});
