@@ -1,0 +1,33 @@
+# Robots.txt for Marvello Store
+# يحدد قواعد الزحف (Crawling) لمحركات البحث
+
+# السماح لجميع محركات البحث
+User-agent: *
+Allow: /
+
+# منع الزحف إلى صفحات محددة
+Disallow: /admin
+Disallow: /api
+Disallow: /private
+Disallow: /temp
+Disallow: /*.json$
+Disallow: /*.xml$
+
+# تأخير الزحف (بالثواني)
+Crawl-delay: 1
+
+# السماح بالزحف السريع لـ Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# منع Bing من الزحف إلى صفحات معينة
+User-agent: Bingbot
+Allow: /
+Disallow: /admin
+
+# Sitemap
+Sitemap: https://moustafax7-dotcom.github.io/Marvello_Store/sitemap.xml
+
+# رابط الموقع
+Host: https://moustafax7-dotcom.github.io/Marvello_Store/
