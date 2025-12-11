@@ -1,17 +1,14 @@
-// Firebase Configuration
-// ملف إعدادات Firebase للمشروع
+// Firebase Configuration - إعدادات Firebase الأساسية
 
-// تحذير مهم: هذا الملف يحتوي على مفاتيح عامة (Public Keys) وليس سرية
-// لا تضع مفاتيح سرية (Secret Keys) في الكود الأمامي
-
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    // يجب استبدال هذه القيم ببيانات مشروعك على Firebase
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCGFUYp8Ic9Bd7JDSbzstsx3OapW1lJYFo",
+  authDomain: "marvello-d448c.firebaseapp.com",
+  projectId: "marvello-d448c",
+  storageBucket: "marvello-d448c.firebasestorage.app",
+  messagingSenderId: "393349646082",
+  appId: "1:393349646082:web:6cebfe762d7e01f542241b",
+  measurementId: "G-7B0Z39CMKY"
 };
 
 // تهيئة Firebase
@@ -32,6 +29,51 @@ db.enablePersistence()
         }
     });
 
-// تصدير الخدمات للاستخدام في ملفات أخرى
-// (إذا كنت تستخدم modules)
-// export { auth, db, storage };
+// متغيرات عامة
+let currentUser = null;
+
+// مراقبة حالة المصادقة
+auth.onAuthStateChanged(user => {
+    currentUser = user;
+    // يمكنك إضافة منطق هنا لتحديث واجهة المستخدم
+    // مثال: updateUI(user);
+});
+
+// دالة مساعدة لعرض الإشعارات
+function showToast(message) {
+    let toast = document.createElement('div');
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.right = '20px';
+    toast.style.background = '#333';
+    toast.style.color = '#fff';
+    toast.style.padding = '15px 20px';
+    toast.style.borderRadius = '8px';
+    toast.style.zIndex = '9999';
+    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+    toast.style.fontFamily = "'Cairo', sans-serif";
+    toast.style.fontSize = '14px';
+    toast.innerText = message;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// دالة مساعدة للتحقق من صلاحيات المسؤول
+async function isAdmin() {
+    if (!currentUser) return false;
+    
+    try {
+        const userDoc = await db.collection('users').doc(currentUser.uid).get();
+        if (userDoc.exists) {
+            return userDoc.data().role === 'admin';
+        }
+        return false;
+    } catch (error) {
+        console.error('خطأ في التحقق من صلاحيات المسؤول:', error);
+        return false;
+    }
+}
