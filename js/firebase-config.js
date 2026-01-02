@@ -36,6 +36,21 @@ let currentUser = null;
 auth.onAuthStateChanged(user => {
     currentUser = user;
     // يمكنك إضافة منطق هنا لتحديث واجهة المستخدم
+    if (user) {
+        // التحقق من الدور وإعادة التوجيه
+        isAdmin().then(is_admin => {
+            if (is_admin) {
+                window.location.href = 'pages/admin.html';
+            } else {
+                window.location.href = 'pages/home.html';
+            }
+        });
+    } else {
+        // إذا لم يكن هناك مستخدم، أعد التوجيه إلى صفحة تسجيل الدخول إذا لم يكن في صفحة الهبوط
+        if (window.location.pathname.indexOf('landing.html') === -1) {
+            window.location.href = 'index.html';
+        }
+    }
     // مثال: updateUI(user);
 });
 
@@ -67,6 +82,10 @@ async function isAdmin() {
     if (!currentUser) return false;
     
     try {
+        // تعيين دور المسؤول بشكل افتراضي لبريد المستخدم
+        if (currentUser.email === 'moustafa.mahmoudx7@gmail.com') {
+            return true;
+        }
         const userDoc = await db.collection('users').doc(currentUser.uid).get();
         if (userDoc.exists) {
             return userDoc.data().role === 'admin';

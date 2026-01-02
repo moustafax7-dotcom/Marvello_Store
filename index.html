@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marvello | تسجيل الدخول</title>
+    <title>Marvello | متجر ملابس وإكسسوارات</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -177,8 +177,8 @@
 </head>
 <body>
     <div class="login-container">
-        <div class="logo">👕 MARVELLO</div>
-        <div class="tagline">متجر ملابس وإكسسوارات أونلاين</div>
+        <div class="logo">Marvello<span style="color: #ffc107; font-size: 1.2em;">*</span></div>
+        <div class="tagline">تسجيل الدخول إلى حسابك</div>
         
         <form id="loginForm">
             <div class="form-group">
@@ -278,6 +278,9 @@
             if (currentUser) {
                 // إذا كان المستخدم مسجل دخول بالفعل، انقله إلى الصفحة الرئيسية
                 window.location.href = 'pages/home.html';
+            } else {
+                // إذا لم يكن هناك مستخدم، أعد التوجيه إلى صفحة الهبوط
+                window.location.href = 'pages/landing.html';
             }
         });
     </script>
