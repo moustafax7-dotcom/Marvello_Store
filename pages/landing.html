@@ -51,13 +51,15 @@
         }
         
         .logo {
-            font-size: var(--font-size-2xl);
-            font-weight: var(--font-weight-bold);
-            color: var(--primary);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: var(--spacing-sm);
+        }
+        
+        .logo img {
+            height: 30px;
+            width: auto;
         }
         
         .nav-links {
@@ -396,8 +398,7 @@
     <header>
         <div class="navbar">
             <a href="landing.html" class="logo">
-                <i class="fas fa-shopping-bag"></i>
-                Marvello
+                <img src="../images/marvello_logo.jpg" alt="Marvello Store Logo" style="height: 30px;">
             </a>
             <ul class="nav-links">
                 <li><a href="#features">المميزات</a></li>
