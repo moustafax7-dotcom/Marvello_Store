@@ -2,13 +2,13 @@
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCGFUYp8Ic9Bd7JDSbzstsx3OapW1lJYFo",
-  authDomain: "marvello-d448c.firebaseapp.com",
-  projectId: "marvello-d448c",
-  storageBucket: "marvello-d448c.firebasestorage.app",
-  messagingSenderId: "393349646082",
-  appId: "1:393349646082:web:6cebfe762d7e01f542241b",
-  measurementId: "G-7B0Z39CMKY"
+  apiKey: "AIzaSyA7wGZGoQYMtMfOAFiIAp94eEbnZ77ZOGc",
+  authDomain: "marvello-38b2a.firebaseapp.com",
+  projectId: "marvello-38b2a",
+  storageBucket: "marvello-38b2a.firebasestorage.app",
+  messagingSenderId: "1066633090194",
+  appId: "1:1066633090194:web:769914a57832ccc702824b",
+  measurementId: "G-HXFLDYMGRL"
 };
 
 // تهيئة Firebase
