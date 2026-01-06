@@ -205,6 +205,21 @@
         .tab-content.active {
             display: block;
         }
+
+        .sidebar-link {
+            display: block;
+            padding: 12px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: var(--primary);
+        }
     </style>
 </head>
 <body style="background:#f8f9fa;">
@@ -223,39 +238,68 @@
     </header>
     
     <div class="container" style="margin-top:30px; margin-bottom:30px;">
-        <div class="admin-container">
-            <!-- الإحصائيات -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h4>إجمالي المنتجات</h4>
-                    <div class="number" id="totalProducts">0</div>
+        <div class="admin-container" style="display: grid; grid-template-columns: 250px 1fr; gap: 20px;">
+            <!-- الشريط الجانبي -->
+            <div class="sidebar" style="background: var(--dark); color: white; padding: 20px; border-radius: 8px;">
+                <div class="logo" style="text-align: center; margin-bottom: 30px;">
+                    <img src="../images/logo.png" alt="Marvello Logo" style="width: 100px;">
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #27ae60, #229954);">
-                    <h4>الطلبات المكتملة</h4>
-                    <div class="number" id="totalOrders">0</div>
-                </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
-                    <h4>المنتجات منخفضة المخزون</h4>
-                    <div class="number" id="lowStockProducts">0</div>
-                </div>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 15px;">
+                        <a href="#" onclick="switchTab('dashboard')" class="sidebar-link active"><i class="fas fa-tachometer-alt"></i> لوحة التحكم</a>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <a href="#" onclick="switchTab('products')" class="sidebar-link"><i class="fas fa-box"></i> المنتجات</a>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <a href="#" onclick="switchTab('orders')" class="sidebar-link"><i class="fas fa-shopping-bag"></i> الطلبات</a>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <a href="#" onclick="switchTab('reports')" class="sidebar-link"><i class="fas fa-chart-line"></i> التقارير</a>
+                    </li>
+                </ul>
             </div>
-            
-            <!-- التبويبات -->
-            <div class="admin-card">
-                <div class="tabs">
-                    <button class="tab-btn active" onclick="switchTab('products')">
-                        <i class="fas fa-box"></i> المنتجات
-                    </button>
-                    <button class="tab-btn" onclick="switchTab('orders')">
-                        <i class="fas fa-shopping-bag"></i> الطلبات
-                    </button>
-                </div>
+
+            <!-- المحتوى الرئيسي -->
+            <div class="main-content">
+            <!-- المحتوى الرئيسي -->
+            <div class="main-content">
                 
-                <!-- تبويب المنتجات -->
-                <div id="products" class="tab-content active">
-                    <h3>📦 إدارة المنتجات</h3>
+                <!-- تبويب لوحة التحكم (Dashboard) -->
+                <div id="dashboard" class="tab-content active">
+                    <h3>📊 لوحة التحكم الرئيسية</h3>
+                    <!-- الإحصائيات -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>إجمالي المنتجات</h4>
+                            <div class="number" id="totalProducts">0</div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #27ae60, #229954);">
+                            <h4>الطلبات المكتملة</h4>
+                            <div class="number" id="totalOrders">0</div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                            <h4>المنتجات منخفضة المخزون</h4>
+                            <div class="number" id="lowStockProducts">0</div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #f39c12, #d35400);">
+                            <h4>إجمالي الأرباح</h4>
+                            <div class="number" id="totalProfit">0 ج.م</div>
+                        </div>
+                    </div>
                     
-                    <form id="addProductForm">
+                    <div class="admin-card">
+                        <h3>📈 رسوم بيانية (مبيعات آخر 7 أيام)</h3>
+                        <canvas id="salesChart" width="400" height="150"></canvas>
+                    </div>
+                </div>
+
+                <!-- تبويب المنتجات -->
+                <div id="products" class="tab-content">
+                    <div class="admin-card">
+                        <h3>📦 إدارة المنتجات</h3>
+                        
+                        <form id="addProductForm">
                         <div class="form-group">
                             <label>اسم المنتج</label>
                             <input type="text" id="pName" placeholder="أدخل اسم المنتج" required>
