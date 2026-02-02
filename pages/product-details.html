@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المنتج - Marvello Store</title>
+    <meta name="description" content="تفاصيل المنتج من Marvello Store">
+    
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/product-cards.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-family-primary);
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 200;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) var(--spacing-lg);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: var(--font-weight-medium);
+            transition: color var(--transition-base);
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* Main Container */
+        .product-detail-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+        }
+        
+        /* Image Gallery */
+        .image-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        .main-image-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            background: var(--gray-light);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+        }
+        
+        .main-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-base);
+        }
+        
+        .main-image-container:hover .main-image {
+            transform: scale(1.1);
+        }
+        
+        .zoom-icon {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-base);
+            z-index: 10;
+        }
+        
+        .zoom-icon:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+        
+        /* Thumbnail Gallery */
+        .thumbnail-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-sm);
+        }
+        
+        .thumbnail {
+            width: 100%;
+            padding-bottom: 100%;
+            position: relative;
+            border: 2px solid transparent;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+        
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: var(--primary);
+        }
+        
+        .thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Product Info */
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+        
+        .product-header {
+            border-bottom: 1px solid var(--gray-light);
+            padding-bottom: var(--spacing-lg);
+        }
+        
+        .product-category {
+            font-size: var(--font-size-xs);
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .product-title {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--dark);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.3;
+        }
+        
+        .product-rating-section {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .stars {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .star {
+            color: var(--warning);
+            font-size: 16px;
+        }
+        
+        .star.empty {
+            color: var(--gray-light);
+        }
+        
+        .rating-info {
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+        }
+        
+        .rating-info strong {
+            color: var(--dark);
+        }
+        
+        /* Price Section */
+        .price-section {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-lg);
+            background: var(--gray-light);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .current-price {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary);
+        }
+        
+        .original-price {
+            font-size: var(--font-size-lg);
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+        
+        .discount-badge {
+            background: var(--danger);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: var(--border-radius-md);
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-sm);
+        }
+        
+        .stock-status {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .stock-available {
+            color: var(--success);
+        }
+        
+        .stock-low {
+            color: var(--warning);
+        }
+        
+        .stock-unavailable {
+            color: var(--danger);
+        }
+        
+        /* Variants Section */
+        .variants-section {
+            border-top: 1px solid var(--gray-light);
+            border-bottom: 1px solid var(--gray-light);
+            padding: var(--spacing-lg) 0;
+        }
+        
+        .variant-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .variant-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .variant-label {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--dark);
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+        
+        .variant-options {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        
+        .size-option,
+        .color-option {
+            padding: 10px 16px;
+            border: 2px solid var(--gray-light);
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .size-option:hover,
+        .size-option.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .color-option {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .color-option:hover,
+        .color-option.active {
+            border-color: var(--dark);
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Quantity Section */
+        .quantity-section {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .quantity-label {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--dark);
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+        }
+        
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--gray-light);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .quantity-input {
+            width: 60px;
+            height: 40px;
+            border: none;
+            text-align: center;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+        
+        .btn-add-cart {
+            flex: 1;
+            padding: var(--spacing-md);
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-add-cart:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);
+        }
+        
+        .btn-wishlist {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--gray-light);
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all var(--transition-base);
+        }
+        
+        .btn-wishlist:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-wishlist.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        
+        /* Tabs */
+        .product-tabs {
+            border-top: 1px solid var(--gray-light);
+            margin-top: var(--spacing-2xl);
+        }
+        
+        .tabs-header {
+            display: flex;
+            gap: var(--spacing-lg);
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .tab-btn {
+            padding: var(--spacing-md) 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--gray);
+            transition: all var(--transition-base);
+            border-bottom: 3px solid transparent;
+            position: relative;
+            bottom: -1px;
+        }
+        
+        .tab-btn:hover,
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: var(--spacing-lg) 0;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Description */
+        .description-content {
+            line-height: 1.8;
+            color: var(--gray);
+        }
+        
+        .description-content h4 {
+            color: var(--dark);
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .description-content ul {
+            margin-left: 20px;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .description-content li {
+            margin-bottom: 8px;
+        }
+        
+        /* Size Chart */
+        .size-chart {
+            overflow-x: auto;
+        }
+        
+        .size-chart table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .size-chart th,
+        .size-chart td {
+            padding: var(--spacing-md);
+            text-align: center;
+            border: 1px solid var(--gray-light);
+        }
+        
+        .size-chart th {
+            background: var(--gray-light);
+            font-weight: var(--font-weight-bold);
+            color: var(--dark);
+        }
+        
+        /* Reviews Section */
+        .reviews-section {
+            margin-top: var(--spacing-2xl);
+            padding-top: var(--spacing-2xl);
+            border-top: 1px solid var(--gray-light);
+        }
+        
+        .review-item {
+            padding: var(--spacing-lg);
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-md);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .review-author {
+            font-weight: var(--font-weight-semibold);
+            color: var(--dark);
+        }
+        
+        .review-date {
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+        }
+        
+        .review-rating {
+            display: flex;
+            gap: 2px;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .review-text {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* Similar Products */
+        .similar-products {
+            margin-top: var(--spacing-2xl);
+            padding-top: var(--spacing-2xl);
+            border-top: 1px solid var(--gray-light);
+        }
+        
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .product-detail-container {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+            
+            .similar-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .product-title {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .current-price {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-wishlist {
+                width: 100%;
+            }
+            
+            .similar-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .thumbnail-gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .similar-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 999;
+            transition: all var(--transition-base);
+            text-decoration: none;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <a href="../pages/landing.html" class="logo">
+                <img src="../images/marvello_logo.jpg" alt="Marvello Store Logo" style="height: 30px;">
+                <span>Marvello</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="../pages/landing.html">الرئيسية</a></li>
+                <li><a href="../pages/shop.html">المتجر</a></li>
+                <li><a href="../pages/cart.html">السلة <i class="fas fa-shopping-cart"></i></a></li>
+                <li><a href="../index.html">دخول</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="../pages/landing.html">الرئيسية</a> / 
+        <a href="../pages/shop.html">المتجر</a> / 
+        <span id="breadcrumbProduct">المنتج</span>
+    </div>
+
+    <!-- Main Product Detail Container -->
+    <div class="product-detail-container">
+        <!-- Image Gallery -->
+        <div class="image-gallery">
+            <div class="main-image-container">
+                <img id="mainImage" src="https://via.placeholder.com/500x500" alt="صورة المنتج" class="main-image">
+                <div class="zoom-icon" title="تكبير الصورة">
+                    <i class="fas fa-search-plus"></i>
+                </div>
+            </div>
+            <div class="thumbnail-gallery" id="thumbnailGallery">
+                <!-- Thumbnails will be generated here -->
+            </div>
+        </div>
+
+        <!-- Product Information -->
+        <div class="product-info">
+            <div class="product-header">
+                <div class="product-category" id="productCategory">ملابس</div>
+                <h1 class="product-title" id="productTitle">اسم المنتج</h1>
+                
+                <div class="product-rating-section">
+                    <div class="stars" id="productStars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star empty">★</span>
+                    </div>
+                    <div class="rating-info">
+                        <strong id="productRating">4.5</strong> من 5 
+                        (<span id="reviewCount">128</span> تقييم)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Section -->
+            <div class="price-section">
+                <div class="current-price" id="productPrice">150 ج.م</div>
+                <div id="originalPriceContainer" style="display: none;">
+                    <div class="original-price" id="productOriginalPrice">200 ج.م</div>
+                    <div class="discount-badge" id="discountBadge">-25%</div>
+                </div>
+                <div class="stock-status" id="stockStatus">
+                    <span class="stock-available">متوفر</span>
+                </div>
+            </div>
+
+            <!-- Variants -->
+            <div class="variants-section">
+                <!-- Size Selection -->
+                <div class="variant-group">
+                    <label class="variant-label">اختر الحجم</label>
+                    <div class="variant-options" id="sizeOptions">
+                        <!-- Sizes will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Color Selection -->
+                <div class="variant-group">
+                    <label class="variant-label">اختر اللون</label>
+                    <div class="variant-options" id="colorOptions">
+                        <!-- Colors will be generated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantity -->
+            <div class="quantity-section">
+                <label class="quantity-label">الكمية</label>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+                    <input type="number" id="quantityInput" class="quantity-input" value="1" min="1">
+                    <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn-add-cart" onclick="addToCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>أضف إلى السلة</span>
+                </button>
+                <button class="btn-wishlist" id="wishlistBtn" onclick="toggleWishlist()" title="إضافة إلى المفضلة">
+                    <i class="far fa-heart"></i>
+                </button>
+            </div>
+
+            <!-- Product Tabs -->
+            <div class="product-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" onclick="switchTab('description')">الوصف</button>
+                    <button class="tab-btn" onclick="switchTab('size-chart')">جدول المقاسات</button>
+                    <button class="tab-btn" onclick="switchTab('shipping')">الشحن والإرجاع</button>
+                </div>
+
+                <!-- Description Tab -->
+                <div id="description" class="tab-content active">
+                    <div class="description-content" id="descriptionContent">
+                        <!-- Description will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Size Chart Tab -->
+                <div id="size-chart" class="tab-content">
+                    <div class="size-chart">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>الحجم</th>
+                                    <th>الصدر (سم)</th>
+                                    <th>الخصر (سم)</th>
+                                    <th>الطول (سم)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>XS</td>
+                                    <td>76-81</td>
+                                    <td>61-66</td>
+                                    <td>165-170</td>
+                                </tr>
+                                <tr>
+                                    <td>S</td>
+                                    <td>81-86</td>
+                                    <td>66-71</td>
+                                    <td>170-175</td>
+                                </tr>
+                                <tr>
+                                    <td>M</td>
+                                    <td>86-91</td>
+                                    <td>71-76</td>
+                                    <td>175-180</td>
+                                </tr>
+                                <tr>
+                                    <td>L</td>
+                                    <td>91-97</td>
+                                    <td>76-81</td>
+                                    <td>180-185</td>
+                                </tr>
+                                <tr>
+                                    <td>XL</td>
+                                    <td>97-102</td>
+                                    <td>81-86</td>
+                                    <td>185-190</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Shipping Tab -->
+                <div id="shipping" class="tab-content">
+                    <div class="description-content">
+                        <h4>سياسة الشحن</h4>
+                        <p>نوفر شحن سريع وآمن إلى جميع أنحاء مصر والدول العربية.</p>
+                        <ul>
+                            <li><strong>شحن داخل القاهرة:</strong> 1-2 يوم عمل</li>
+                            <li><strong>شحن خارج القاهرة:</strong> 2-3 أيام عمل</li>
+                            <li><strong>شحن دولي:</strong> 5-7 أيام عمل</li>
+                        </ul>
+                        
+                        <h4>سياسة الإرجاع</h4>
+                        <p>يمكنك إرجاع المنتج خلال 30 يوم من تاريخ الشراء بدون أي مشاكل.</p>
+                        <ul>
+                            <li>المنتج يجب أن يكون في حالته الأصلية</li>
+                            <li>يجب أن يكون معه الفاتورة الأصلية</li>
+                            <li>استرجاع المبلغ خلال 5-7 أيام عمل</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="product-detail-container" style="grid-template-columns: 1fr; margin-top: 0;">
+        <div class="reviews-section">
+            <h2 style="margin-bottom: var(--spacing-lg);">تقييمات العملاء</h2>
+            
+            <div id="reviewsList" style="margin-bottom: var(--spacing-2xl);">
+                <!-- Reviews will be loaded here -->
+            </div>
+
+            <div style="background: var(--white); padding: var(--spacing-lg); border-radius: var(--border-radius-lg); box-shadow: var(--shadow-sm);">
+                <h3 style="margin-bottom: var(--spacing-md);">أضف تقييمك</h3>
+                <div style="margin-bottom: var(--spacing-md);">
+                    <label style="display: block; margin-bottom: var(--spacing-sm); font-weight: var(--font-weight-semibold);">التقييم</label>
+                    <div id="starRating" style="display: flex; gap: 8px; font-size: 24px;">
+                        <i class="far fa-star" data-rating="1" style="cursor: pointer; color: var(--gray-light);"></i>
+                        <i class="far fa-star" data-rating="2" style="cursor: pointer; color: var(--gray-light);"></i>
+                        <i class="far fa-star" data-rating="3" style="cursor: pointer; color: var(--gray-light);"></i>
+                        <i class="far fa-star" data-rating="4" style="cursor: pointer; color: var(--gray-light);"></i>
+                        <i class="far fa-star" data-rating="5" style="cursor: pointer; color: var(--gray-light);"></i>
+                    </div>
+                </div>
+                <textarea id="reviewComment" placeholder="اكتب رأيك بصراحة..." style="width: 100%; padding: var(--spacing-md); border: 1px solid var(--gray-light); border-radius: var(--border-radius-md); font-family: var(--font-family-primary); resize: vertical; min-height: 100px;"></textarea>
+                <button onclick="submitReview()" class="btn-add-cart" style="margin-top: var(--spacing-md); width: 100%;">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>إرسال التقييم</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Similar Products -->
+    <div class="product-detail-container" style="grid-template-columns: 1fr; margin-top: 0;">
+        <div class="similar-products">
+            <h2 style="margin-bottom: var(--spacing-lg);">منتجات مشابهة</h2>
+            <div class="similar-grid" id="similarProducts">
+                <!-- Similar products will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/201097792552" class="whatsapp-float" target="_blank" title="تواصل معنا عبر واتساب">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="../js/product-cards.js"></script>
+    <script src="../js/product-detail-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvello | متجر ملابس وإكسسوارات</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 420px;
+            width: 100%;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo {
+            /* إزالة الأنماط النصية القديمة */
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .tagline {
+            text-align: center;
+            color: #999;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+        
+        .form-group i {
+            position: absolute;
+            top: 38px;
+            right: 12px;
+            color: #999;
+            pointer-events: none;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-login:active {
+            transform: translateY(0);
+        }
+        
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .links {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .links a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+        
+        .links-separator {
+            color: #ddd;
+            margin: 0 8px;
+        }
+        
+        .register-link {
+            display: block;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            color: #666;
+        }
+        
+        .register-link a {
+            color: #ff6b6b;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #ff6b6b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 8px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo"><img src="images/marvello_logo.jpg" alt="Marvello Store Logo" style="height: 40px;"></div>
+        <div class="tagline">تسجيل الدخول إلى حسابك</div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+            </div>
+
+            <button type="submit" class="btn-login" id="loginBtn">
+                <span id="btnText">دخول</span>
+                <span class="spinner" id="spinner" style="display: none;"></span>
+            </button>
+            
+            <div class="loading" id="loadingMsg">
+                جاري التحقق من البيانات...
+            </div>
+        </form>
+        
+        <div class="links">
+            <a href="pages/forgot.html">نسيت كلمة السر؟</a>
+            <span class="links-separator">|</span>
+            <a href="pages/register.html">إنشاء حساب</a>
+        </div>
+        
+        <div class="register-link">
+            ليس لديك حساب؟ 
+            <a href="pages/register.html">سجل الآن مجاناً</a>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebaseapp/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebaseapp/9.22.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebaseapp/9.22.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebaseapp/9.22.0/firebase-storage.js"></script>
+
+    <!-- Firebase Configuration -->
+    <script src="js/firebase-config.js"></script>
+
+    <!-- Firebase Modules -->
+    <script src="js/firebase-auth.js"></script>
+    <script src="js/firebase-products.js"></script>
+    <script src="js/firebase-orders.js"></script>
+
+    <!-- Original Auth (Fallback) -->
+    <script src="js/auth.js"></script>
+
+    <script>
+        // معالج تسجيل الدخول
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('spinner');
+            
+            // تعطيل الزر أثناء المعالجة
+            loginBtn.disabled = true;
+            btnText.style.display = 'none';
+            spinner.style.display = 'inline-block';
+            
+            try {
+                // محاولة تسجيل الدخول عبر Firebase
+                const user = await loginUser(email, password);
+                
+                if (user) {
+                    // تحديد الصفحة التي سيتم الانتقال إليها
+                    const isAdmin = await isAdmin();
+                    
+                    if (isAdmin) {
+                        window.location.href = 'pages/admin.html';
+                    } else {
+                        window.location.href = 'pages/home.html';
+                    }
+                }
+            } catch (error) {
+                console.error('خطأ في تسجيل الدخول:', error);
+                // الرسالة تظهر من دالة loginUser
+            } finally {
+                // إعادة تفعيل الزر
+                loginBtn.disabled = false;
+                btnText.style.display = 'inline';
+                spinner.style.display = 'none';
+            }
+        });
+        
+        // التحقق من حالة المستخدم عند تحميل الصفحة
+        window.addEventListener('load', () => {
+            if (currentUser) {
+                // إذا كان المستخدم مسجل دخول بالفعل، انقله إلى الصفحة الرئيسية
+                window.location.href = 'pages/home.html';
+            } else {
+                // إذا لم يكن هناك مستخدم، أعد التوجيه إلى صفحة الهبوط
+                window.location.href = 'pages/landing.html';
+            }
+        });
+    </script>
+</body>
+</html>

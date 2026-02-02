@@ -1,0 +1,280 @@
+/* =========================================
+   ملف تنسيق المنتجات (Products Style)
+   يحتوي على: شريط البحث، الفلاتر، وكروت المنتجات
+   ========================================= */
+
+/* -----------------------------------------
+   1. شريط البحث والفلترة (Filters Bar)
+   ----------------------------------------- */
+.filters-bar {
+    background-color: var(--white);
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    margin: 30px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #f0f0f0;
+}
+
+/* مربع البحث */
+.search-wrapper {
+    position: relative;
+    flex: 1; /* ياخد المساحة المتاحة */
+    min-width: 280px;
+}
+
+.search-wrapper input {
+    width: 100%;
+    padding: 12px 45px 12px 20px;
+    border: 1px solid #ddd;
+    border-radius: 50px; /* شكل دائري */
+    outline: none;
+    transition: 0.3s;
+    background: #fcfcfc;
+}
+
+.search-wrapper input:focus {
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 75, 43, 0.1);
+}
+
+.search-wrapper i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+/* أزرار التصنيفات (الكل - رجالي - حريمي) */
+.categories-btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+.categories-btn-group button {
+    background: transparent;
+    border: 1px solid #e0e0e0;
+    padding: 8px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--secondary);
+    transition: all 0.3s ease;
+}
+
+.categories-btn-group button:hover,
+.categories-btn-group button.active {
+    background: var(--secondary);
+    color: var(--white);
+    border-color: var(--secondary);
+    transform: translateY(-2px);
+}
+
+/* -----------------------------------------
+   2. شبكة المنتجات (The Grid)
+   ----------------------------------------- */
+.products-grid {
+    display: grid;
+    /* يظبط عدد الأعمدة أوتوماتيك حسب حجم الشاشة */
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+    padding-bottom: 50px;
+}
+
+/* -----------------------------------------
+   3. كرت المنتج (Product Card)
+   ----------------------------------------- */
+.product-card {
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden; /* عشان الصورة متخرجش بره الحدود */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f5f5f5;
+    position: relative;
+}
+
+/* تأثير عند الوقوف بالماوس */
+.product-card:hover {
+    transform: translateY(-7px); /* يطلع لفوق شوية */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* -----------------------------------------
+   4. صورة المنتج (Image Handling) - أهم جزء
+   ----------------------------------------- */
+.product-image-container {
+    width: 100%;
+    height: 260px; /* ارتفاع ثابت لتوحيد الشكل */
+    overflow: hidden;
+    position: relative;
+    background: #f9f9f9;
+    border-bottom: 1px solid #eee;
+}
+
+.product-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* يملأ المساحة بذكاء */
+    object-position: top center; /* التركيز على الجزء العلوي */
+    transition: transform 0.5s ease;
+}
+
+/* تكبير الصورة ببطء عند اللمس */
+.product-card:hover .product-image-container img {
+    transform: scale(1.08);
+}
+
+/* -----------------------------------------
+   5. تفاصيل المنتج (Content)
+   ----------------------------------------- */
+.card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.card-body h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--secondary);
+    white-space: nowrap; /* يمنع نزول الاسم لسطرين */
+    overflow: hidden;
+    text-overflow: ellipsis; /* يحط نقط ... لو الاسم طويل */
+}
+
+.price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* -----------------------------------------
+   6. أيقونة المفضلة (Wishlist Heart)
+   ----------------------------------------- */
+.wishlist-icon {
+    position: absolute;
+    top: 15px;
+    left: 15px; /* عشان الموقع عربي خليناها شمال */
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #ccc; /* لون رمادي وهي مطفية */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+    transition: 0.3s;
+}
+
+.wishlist-icon:hover {
+    transform: scale(1.1);
+    background: #fff;
+}
+
+.wishlist-icon.active {
+    color: #ff4b2b; /* لون أحمر لما يداس عليها */
+    animation: pulse 0.3s ease-in-out;
+}
+
+/* حركة نبض القلب لما تدوس عليه */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+
+/* -----------------------------------------
+   تحسينات إضافية للواجهة
+   ----------------------------------------- */
+
+/* تحسين أيقونة المفضلة */
+.wishlist-icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #ccc;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 10;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+
+.wishlist-icon:hover {
+    transform: scale(1.15);
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.wishlist-icon.active {
+    color: #e74c3c;
+    animation: pulse 0.4s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.35); }
+    100% { transform: scale(1); }
+}
+
+/* شارة الخصم */
+.discount-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 8;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* شارة المخزون */
+.stock-badge {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    z-index: 8;
+    backdrop-filter: blur(5px);
+}
+
+.stock-badge.in-stock {
+    background: rgba(39, 174, 96, 0.9);
+    color: white;
+}
+
+.stock-badge.low-stock {
+    background: rgba(241, 196, 15, 0.9);
+    color: #333;
+}
+
+.stock-badge.out-of-stock {
+    background: rgba(192, 57, 43, 0.9);
+    color: white;
+}
