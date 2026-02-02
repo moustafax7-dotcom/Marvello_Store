@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvello | الرئيسية</title>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/products.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="home.html" class="logo" style="font-size: 24px; font-weight: bold; color: var(--primary);">Marvello</a>
+                
+                <ul class="nav-links">
+                    <li><a href="home.html" style="color: var(--primary);">الرئيسية</a></li>
+                    <li>
+                        <a href="cart.html" style="position: relative;">
+                            السلة <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount" style="position: absolute; top: -8px; left: -10px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px;">0</span>
+                        </a>
+                    </li>
+                    <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="filters-bar">
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="دور على اللي يعجبك..." onkeyup="searchProducts(this.value)">
+            </div>
+            
+            <div class="categories-btn-group">
+                <button class="active" onclick="filterCategory('all', this)">الكل</button>
+                <button onclick="filterCategory('men', this)">رجالي</button>
+                <button onclick="filterCategory('women', this)">حريمي</button>
+                <button onclick="filterCategory('accessories', this)">إكسسوارات</button>
+            </div>
+        </div>
+
+        <h2 style="margin-bottom: 20px; color: var(--secondary);">أحدث المنتجات</h2>
+        
+        <div id="productsGrid" class="products-grid">
+            <p style="text-align: center; width: 100%;">جاري تحميل المنتجات...</p>
+        </div>
+
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="../js/script.js"></script>
+
+    <script>
+        // أول ما الصفحة تفتح، نفذ الأوامر دي:
+        window.onload = function() {
+            checkLogin();    // 1. اتأكد إنه مسجل دخول
+            loadProducts();  // 2. حمل المنتجات من الملف
+            updateCartCount(); // 3. حدث رقم السلة
+        };
+    </script>
+
+</body>
+</html>
