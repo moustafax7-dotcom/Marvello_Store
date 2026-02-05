@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأكيد الطلب - Marvello Store</title>
+    <meta name="description" content="تأكيد طلبك من Marvello Store">
+    
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-family-primary);
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            padding: var(--spacing-md) var(--spacing-lg);
+        }
+        
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: var(--font-weight-bold);
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo img {
+            height: 30px;
+        }
+        
+        /* Confirmation Container */
+        .confirmation-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+        
+        /* Success Message */
+        .success-section {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%);
+            border: 2px solid var(--success);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-2xl);
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 40px;
+            margin: 0 auto var(--spacing-lg);
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        .success-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--success);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .success-message {
+            font-size: var(--font-size-base);
+            color: var(--gray);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .order-id {
+            background: var(--white);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary);
+            font-size: var(--font-size-lg);
+            word-break: break-all;
+        }
+        
+        /* Info Sections */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .info-card {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .info-card-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+        }
+        
+        .info-card-title i {
+            font-size: 20px;
+        }
+        
+        .info-item {
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .info-label {
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+            margin-bottom: 4px;
+        }
+        
+        .info-value {
+            font-weight: var(--font-weight-semibold);
+            color: var(--dark);
+        }
+        
+        /* Order Items */
+        .order-items-section {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .section-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title i {
+            color: var(--primary);
+        }
+        
+        .order-item {
+            display: flex;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .item-name {
+            font-weight: var(--font-weight-semibold);
+            color: var(--dark);
+        }
+        
+        .item-variants {
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+        }
+        
+        .item-price {
+            font-weight: var(--font-weight-bold);
+            color: var(--primary);
+        }
+        
+        .item-quantity {
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+        }
+        
+        /* Order Summary */
+        .order-summary {
+            background: var(--gray-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-md);
+            font-size: var(--font-size-base);
+        }
+        
+        .summary-row.total {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary);
+            border-top: 2px solid var(--gray);
+            padding-top: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+        
+        /* Next Steps */
+        .next-steps-section {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--spacing-2xl);
+        }
+        
+        .steps-list {
+            list-style: none;
+        }
+        
+        .step-item {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-md);
+            background: var(--light);
+            border-radius: var(--border-radius-md);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-bold);
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 4px;
+        }
+        
+        .step-content p {
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+        }
+        
+        /* Actions */
+        .actions-section {
+            display: flex;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: var(--spacing-2xl);
+        }
+        
+        .btn-primary {
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-bold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);
+        }
+        
+        .btn-secondary {
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-bold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-light);
+        }
+        
+        /* Email Notification */
+        .email-notification {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196F3;
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .email-notification i {
+            color: #2196F3;
+            font-size: 20px;
+        }
+        
+        .email-notification-text {
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+        }
+        
+        .email-notification-text strong {
+            color: var(--dark);
+        }
+        
+        /* Animations */
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .confirmation-container {
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .confirmation-container {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions-section {
+                flex-direction: column;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .order-item {
+                flex-direction: column;
+            }
+            
+            .item-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <a href="../pages/landing.html" class="logo">
+                <img src="../images/marvello_logo.jpg" alt="Marvello Store Logo">
+                <span>Marvello</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Confirmation Container -->
+    <div class="confirmation-container">
+        <!-- Success Message -->
+        <div class="success-section">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h1 class="success-title">تم استقبال طلبك بنجاح!</h1>
+            <p class="success-message">شكراً لتسوقك معنا. سيتم معالجة طلبك قريباً.</p>
+            
+            <div class="email-notification">
+                <i class="fas fa-envelope"></i>
+                <div class="email-notification-text">
+                    تم إرسال رسالة تأكيد إلى <strong id="confirmationEmail">your@email.com</strong>
+                </div>
+            </div>
+            
+            <div style="margin-top: var(--spacing-lg);">
+                <p style="font-size: var(--font-size-sm); color: var(--gray); margin-bottom: var(--spacing-md);">رقم الطلب:</p>
+                <div class="order-id" id="orderId">ORD-XXXXXXXXXX</div>
+            </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="info-grid">
+            <!-- Shipping Info -->
+            <div class="info-card">
+                <div class="info-card-title">
+                    <i class="fas fa-truck"></i>
+                    <span>معلومات الشحن</span>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">الاسم</div>
+                    <div class="info-value" id="shippingName">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">العنوان</div>
+                    <div class="info-value" id="shippingAddress">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">المدينة</div>
+                    <div class="info-value" id="shippingCity">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">الهاتف</div>
+                    <div class="info-value" id="shippingPhone">-</div>
+                </div>
+            </div>
+
+            <!-- Payment Info -->
+            <div class="info-card">
+                <div class="info-card-title">
+                    <i class="fas fa-credit-card"></i>
+                    <span>معلومات الدفع</span>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">طريقة الدفع</div>
+                    <div class="info-value" id="paymentMethod">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">حالة الدفع</div>
+                    <div class="info-value" id="paymentStatus" style="color: var(--warning);">قيد المعالجة</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">تاريخ الطلب</div>
+                    <div class="info-value" id="orderDate">-</div>
+                </div>
+            </div>
+
+            <!-- Tracking Info -->
+            <div class="info-card">
+                <div class="info-card-title">
+                    <i class="fas fa-tracking"></i>
+                    <span>تتبع الطلب</span>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">حالة الطلب</div>
+                    <div class="info-value" id="orderStatus" style="color: var(--warning);">قيد المعالجة</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">وقت التسليم المتوقع</div>
+                    <div class="info-value" id="estimatedDelivery">3-5 أيام عمل</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">رقم التتبع</div>
+                    <div class="info-value" id="trackingNumber">سيتم توفيره قريباً</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Items -->
+        <div class="order-items-section">
+            <div class="section-title">
+                <i class="fas fa-shopping-bag"></i>
+                <span>المنتجات المطلوبة</span>
+            </div>
+            <div id="orderItemsList">
+                <!-- Items will be rendered here -->
+            </div>
+            
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span>المجموع الفرعي:</span>
+                    <span id="subtotal">0 ج.م</span>
+                </div>
+                <div class="summary-row" id="discountRow" style="display: none;">
+                    <span>الخصم:</span>
+                    <span id="discount" style="color: var(--success);">-0 ج.م</span>
+                </div>
+                <div class="summary-row">
+                    <span>الشحن:</span>
+                    <span>مجاني</span>
+                </div>
+                <div class="summary-row total">
+                    <span>الإجمالي:</span>
+                    <span id="total">0 ج.م</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="next-steps-section">
+            <div class="section-title">
+                <i class="fas fa-list-check"></i>
+                <span>الخطوات التالية</span>
+            </div>
+            <ul class="steps-list">
+                <li class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>تأكيد الطلب</h4>
+                        <p>سيتم تأكيد طلبك خلال 24 ساعة</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>تجهيز الشحنة</h4>
+                        <p>سيتم تجهيز منتجاتك للشحن</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>الشحن</h4>
+                        <p>سيتم شحن طلبك وسنرسل لك رقم التتبع</p>
+                    </div>
+                </li>
+                <li class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>التسليم</h4>
+                        <p>سيتم توصيل طلبك إلى عنوانك</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions-section">
+            <a href="../pages/landing.html" class="btn-primary">
+                <i class="fas fa-home"></i>
+                <span>العودة للصفحة الرئيسية</span>
+            </a>
+            <a href="../pages/shop.html" class="btn-secondary">
+                <i class="fas fa-shopping-bag"></i>
+                <span>متابعة التسوق</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/order-confirmation.js"></script>
+</body>
+</html>
