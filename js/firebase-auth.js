@@ -101,7 +101,8 @@ async function logoutUser() {
         await auth.signOut();
         showToast('تم تسجيل الخروج بنجاح ✅');
         localStorage.removeItem('marvelloUser');
-        window.location.href = '../index.html';
+        // التوجيه إلى صفحة المتجر بدلاً من صفحة الدخول
+        window.location.href = window.location.href.includes('/pages/') ? 'shop.html' : 'pages/shop.html';
     } catch (error) {
         console.error('خطأ في تسجيل الخروج:', error);
         showToast('حدث خطأ في تسجيل الخروج ❌');
@@ -187,14 +188,7 @@ function updateUIForLoggedInUser(user) {
 
 // تحديث واجهة المستخدم للمستخدم غير المسجل دخول
 function updateUIForLoggedOutUser() {
-    // إعادة توجيه إلى صفحة تسجيل الدخول إذا لزم الأمر
-    const isPublicPage = window.location.href.includes('index.html') || 
-                         window.location.href.includes('register.html') || 
-                         window.location.href.includes('forgot.html');
-    
-    if (!isPublicPage && !window.location.href.includes('pages/')) {
-        // لا تعيد التوجيه من الصفحات العامة
-    }
+    // لا نعيد التوجيه - جميع الصفحات متاحة للعملاء بدون تسجيل دخول
 }
 
 // دالة مساعدة لعرض الإشعارات (Toast)

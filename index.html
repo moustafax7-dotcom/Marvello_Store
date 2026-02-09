@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marvello | متجر ملابس وإكسسوارات</title>
-    <meta name="description" content="متجر Marvello - أفضل متجر للملابس والإكسسوارات بأسعار منافسة">
+    <title>متجر Marvello - تسوق الملابس والإكسسوارات</title>
+    <meta name="description" content="تسوق أحدث الملابس والإكسسوارات من Marvello Store بأسعار منافسة وجودة عالية">
+    <meta name="keywords" content="ملابس, إكسسوارات, تسوق أونلاين, مصر">
+    
     <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/product-cards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
@@ -21,87 +24,622 @@
             color: var(--dark);
         }
         
-        /* Loading Screen */
-        .loading-screen {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            position: fixed;
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 9999;
+            z-index: 200;
         }
         
-        .loading-content {
-            text-align: center;
-            color: var(--white);
-        }
-        
-        .loading-logo {
-            font-size: 48px;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-        
-        .loading-text {
-            font-size: 18px;
-            margin-bottom: 20px;
-            font-weight: var(--font-weight-semibold);
-        }
-        
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid var(--white);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) var(--spacing-lg);
+            max-width: 1400px;
             margin: 0 auto;
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary);
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        .logo img {
+            height: 30px;
+            width: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: var(--font-weight-medium);
+            transition: color var(--transition-base);
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Main Container */
+        .shop-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: var(--spacing-lg);
+        }
+        
+        /* Sidebar Filters */
+        .filters-sidebar {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .filter-group {
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .filter-group:last-child {
+            border-bottom: none;
+        }
+        
+        .filter-title {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-bold);
+            color: var(--dark);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .filter-title i {
+            transition: transform var(--transition-base);
+        }
+        
+        .filter-title.collapsed i {
+            transform: rotate(-90deg);
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .filter-option input {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+        }
+        
+        .filter-option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+        }
+        
+        .filter-option input:checked + label {
+            color: var(--primary);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        /* Price Range Slider */
+        .price-range-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        .price-inputs {
+            display: flex;
+            gap: var(--spacing-sm);
+            align-items: center;
+        }
+        
+        .price-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-sm);
+            text-align: center;
+        }
+        
+        .price-separator {
+            color: var(--gray);
+        }
+        
+        .price-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--gray-light);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .price-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .price-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Clear Filters Button */
+        .clear-filters-btn {
+            width: 100%;
+            padding: var(--spacing-md);
+            background: var(--gray-light);
+            border: none;
+            border-radius: var(--border-radius-md);
+            color: var(--dark);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .clear-filters-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Main Content */
+        .shop-content {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Top Bar */
+        .shop-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            background: var(--white);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .results-info {
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+        }
+        
+        .sort-container {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .sort-label {
+            font-size: var(--font-size-sm);
+            color: var(--gray);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .sort-select {
+            padding: 8px 12px;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-sm);
+            background: var(--white);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+        
+        .sort-select:hover,
+        .sort-select:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        /* View Toggle */
+        .view-toggle {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        
+        .view-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--gray-light);
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            transition: all var(--transition-base);
+        }
+        
+        .view-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        
+        /* Products Grid */
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: var(--spacing-2xl);
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            color: var(--gray-light);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .empty-state-title {
+            font-size: var(--font-size-lg);
+            color: var(--dark);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .empty-state-text {
+            color: var(--gray);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-2xl);
+        }
+        
+        .pagination-btn {
+            padding: 8px 12px;
+            border: 1px solid var(--gray-light);
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-size: var(--font-size-sm);
+        }
+        
+        .pagination-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .pagination-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .shop-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-sidebar {
+                position: static;
+            }
+            
+            .shop-top-bar {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                align-items: flex-start;
+            }
+            
+            .sort-container {
+                width: 100%;
+            }
+            
+            .sort-select {
+                flex: 1;
+            }
+            
+            .products-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .products-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .shop-top-bar {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+        }
+        
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 999;
+            transition: all var(--transition-base);
+            text-decoration: none;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
         }
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-content">
-            <div class="loading-logo">
-                <i class="fas fa-shopping-bag"></i>
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <a href="pages/shop.html" class="logo">
+                <img src="images/marvello_logo.jpg" alt="Marvello Store Logo">
+                <span>Marvello</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="pages/shop.html">الرئيسية</a></li>
+                <li><a href="pages/shop.html" style="color: var(--primary);">المتجر</a></li>
+                <li><a href="#contact">تواصل معنا</a></li>
+                <li><a href="pages/admin.html" title="لوحة الإدارة" style="font-size: 18px; color: var(--primary);"><i class="fas fa-cog"></i></a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="shop-container">
+        <!-- Sidebar Filters -->
+        <aside class="filters-sidebar">
+            <h2 style="margin-bottom: var(--spacing-lg); color: var(--dark);">تصفية المنتجات</h2>
+            
+            <!-- Category Filter -->
+            <div class="filter-group">
+                <div class="filter-title">
+                    <span>الفئة</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-all" value="all" checked>
+                        <label for="cat-all">جميع الفئات</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-tshirts" value="tshirts" data-category="تيشيرتات">
+                        <label for="cat-tshirts">تيشيرتات</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-shirts" value="shirts" data-category="قمصان">
+                        <label for="cat-shirts">قمصان</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-dresses" value="dresses" data-category="فساتين">
+                        <label for="cat-dresses">فساتين</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="cat-shoes" value="shoes" data-category="أحذية">
+                        <label for="cat-shoes">أحذية</label>
+                    </div>
+                </div>
             </div>
-            <div class="loading-text">جاري تحميل متجر Marvello...</div>
-            <div class="spinner"></div>
+            
+            <!-- Price Filter -->
+            <div class="filter-group">
+                <div class="filter-title">
+                    <span>السعر</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="price-range-container">
+                    <div class="price-inputs">
+                        <input type="number" id="priceMin" class="price-input" placeholder="من" min="0" value="0">
+                        <span class="price-separator">-</span>
+                        <input type="number" id="priceMax" class="price-input" placeholder="إلى" min="0" value="1000">
+                    </div>
+                    <input type="range" id="priceSlider" class="price-slider" min="0" max="1000" value="1000">
+                </div>
+            </div>
+            
+            <!-- Size Filter -->
+            <div class="filter-group">
+                <div class="filter-title">
+                    <span>الحجم</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="size-xs" value="XS" data-size="XS">
+                        <label for="size-xs">XS</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="size-s" value="S" data-size="S">
+                        <label for="size-s">S</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="size-m" value="M" data-size="M">
+                        <label for="size-m">M</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="size-l" value="L" data-size="L">
+                        <label for="size-l">L</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="size-xl" value="XL" data-size="XL">
+                        <label for="size-xl">XL</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="size-2xl" value="2XL" data-size="2XL">
+                        <label for="size-2xl">2XL</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Color Filter -->
+            <div class="filter-group">
+                <div class="filter-title">
+                    <span>اللون</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="color-black" value="أسود" data-color="أسود">
+                        <label for="color-black">أسود</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="color-white" value="أبيض" data-color="أبيض">
+                        <label for="color-white">أبيض</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="color-red" value="أحمر" data-color="أحمر">
+                        <label for="color-red">أحمر</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="color-blue" value="أزرق" data-color="أزرق">
+                        <label for="color-blue">أزرق</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="color-green" value="أخضر" data-color="أخضر">
+                        <label for="color-green">أخضر</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Rating Filter -->
+            <div class="filter-group">
+                <div class="filter-title">
+                    <span>التقييم</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="rating-5" value="5" data-rating="5">
+                        <label for="rating-5">★★★★★ (5 نجوم)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="rating-4" value="4" data-rating="4">
+                        <label for="rating-4">★★★★ (4 نجوم وأعلى)</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="rating-3" value="3" data-rating="3">
+                        <label for="rating-3">★★★ (3 نجوم وأعلى)</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Clear Filters -->
+            <button class="clear-filters-btn">مسح جميع الفلاتر</button>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="shop-content">
+            <!-- Top Bar -->
+            <div class="shop-top-bar">
+                <div class="results-info">
+                    عرض <span id="resultsCount">0</span> من <span id="totalCount">0</span> منتج
+                </div>
+                <div class="sort-container">
+                    <label class="sort-label">ترتيب حسب:</label>
+                    <select class="sort-select" id="sortSelect">
+                        <option value="newest">الأحدث</option>
+                        <option value="price-low">السعر: من الأقل للأعلى</option>
+                        <option value="price-high">السعر: من الأعلى للأقل</option>
+                        <option value="best-selling">الأكثر مبيعاً</option>
+                        <option value="rating">الأعلى تقييماً</option>
+                    </select>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" id="gridView" title="عرض الشبكة">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" id="listView" title="عرض القائمة">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-container" id="productsContainer">
+                <!-- Products will be loaded here -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Pagination will be generated here -->
+            </div>
         </div>
     </div>
 
-    <script>
-        // إعادة توجيه مباشر إلى صفحة المتجر
-        window.addEventListener('load', function() {
-            // إخفاء شاشة التحميل بعد ثانية واحدة
-            setTimeout(function() {
-                // التوجيه إلى صفحة المتجر
-                window.location.href = 'pages/shop.html';
-            }, 1000);
-        });
-        
-        // في حالة عدم تحميل الصفحة، قم بالتوجيه بعد 3 ثوان
-        setTimeout(function() {
-            if (document.getElementById('loadingScreen')) {
-                window.location.href = 'pages/shop.html';
-            }
-        }, 3000);
-    </script>
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/201097792552" class="whatsapp-float" target="_blank" title="تواصل معنا عبر واتساب">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="js/product-cards.js"></script>
+    <script src="js/shop-filters.js"></script>
 </body>
 </html>

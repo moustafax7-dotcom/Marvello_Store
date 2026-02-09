@@ -35,23 +35,13 @@ let currentUser = null;
 // مراقبة حالة المصادقة
 auth.onAuthStateChanged(user => {
     currentUser = user;
-    // يمكنك إضافة منطق هنا لتحديث واجهة المستخدم
+    // لا نعيد التوجيه الإجباري - جميع الصفحات متاحة للعملاء
+    // يمكنك إضافة منطق هنا لتحديث واجهة المستخدم فقط
     if (user) {
-        // التحقق من الدور وإعادة التوجيه
-        isAdmin().then(is_admin => {
-            if (is_admin) {
-                window.location.href = 'pages/admin.html';
-            } else {
-                window.location.href = 'pages/home.html';
-            }
-        });
+        console.log('مستخدم مسجل دخول:', user.email);
     } else {
-        // إذا لم يكن هناك مستخدم، أعد التوجيه إلى صفحة تسجيل الدخول إذا لم يكن في صفحة الهبوط
-        if (window.location.pathname.indexOf('landing.html') === -1) {
-            window.location.href = 'index.html';
-        }
+        console.log('المستخدم غير مسجل دخول');
     }
-    // مثال: updateUI(user);
 });
 
 // دالة مساعدة لعرض الإشعارات

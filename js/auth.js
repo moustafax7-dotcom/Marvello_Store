@@ -1,4 +1,4 @@
-// js/auth.js - النسخة النهائية
+// js/auth.js - النسخة المحدثة بدون تسجيل دخول إجباري
 
 // 1. تسجيل عميل جديد (لصفحة Register)
 function registerUser(name, email, password) {
@@ -14,8 +14,9 @@ function registerUser(name, email, password) {
     users.push({ name, email, password, role: 'user' });
     localStorage.setItem('marvelloUsersDB', JSON.stringify(users));
     
-    alert("تم إنشاء الحساب بنجاح! سجل دخول الآن.");
-    window.location.href = '../index.html';
+    alert("تم إنشاء الحساب بنجاح!");
+    // التوجيه إلى صفحة المتجر بدلاً من صفحة الدخول
+    window.location.href = window.location.href.includes('/pages/') ? 'shop.html' : 'pages/shop.html';
 }
 
 // 2. تسجيل الدخول (معدلة لتقبل الأدمن والعملاء)
@@ -34,32 +35,22 @@ function login(email, password) {
 
     if (user) {
         localStorage.setItem('marvelloUser', JSON.stringify(user));
-        // توجيه للصفحة المناسبة حسب مكاني الحالي
-        const target = window.location.href.includes('pages') ? 'home.html' : 'pages/home.html';
-        window.location.href = target;
+        // توجيه للمتجر بدلاً من صفحة home
+        window.location.href = window.location.href.includes('/pages/') ? 'shop.html' : 'pages/shop.html';
     } else {
         alert("بيانات الدخول غير صحيحة!");
     }
 }
 
-// 3. التحقق من الدخول (حماية الصفحات)
+// 3. التحقق من الدخول (معطل - لا نحتاج حماية الصفحات)
 function checkLogin() {
-    const user = localStorage.getItem('marvelloUser');
-    // الصفحات المسموح بزيارتها بدون تسجيل دخول
-    const isPublicPage = window.location.href.includes('index.html') || 
-                         window.location.href.includes('register.html') || 
-                         window.location.href.includes('forgot.html');
-
-    if (!user && !isPublicPage) {
-        // لو مش مسجل ومش في صفحة عامة، اطرده لصفحة الدخول
-        const path = window.location.href.includes('/pages/') ? '../index.html' : 'index.html';
-        window.location.href = path;
-    }
+    // هذه الدالة معطلة الآن - جميع الصفحات متاحة للعملاء بدون تسجيل دخول
+    // يمكن للعملاء الوصول إلى جميع الصفحات مباشرة
 }
 
 // 4. تسجيل الخروج
 function logout() {
     localStorage.removeItem('marvelloUser');
-    window.location.href = '../index.html';
-
+    // التوجيه إلى صفحة المتجر بدلاً من صفحة الدخول
+    window.location.href = window.location.href.includes('/pages/') ? 'shop.html' : 'pages/shop.html';
 }
