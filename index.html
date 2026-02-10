@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر Marvello - تسوق الملابس والإكسسوارات</title>
-    <meta name="description" content="تسوق أحدث الملابس والإكسسوارات من Marvello Store بأسعار منافسة وجودة عالية">
+    <title>Marvello | متجر الملابس والإكسسوارات</title>
+    <meta name="description" content="متجر Marvello - أفضل متجر للملابس والإكسسوارات بأسعار منافسة وجودة عالية">
     <meta name="keywords" content="ملابس, إكسسوارات, تسوق أونلاين, مصر">
     
     <link rel="stylesheet" href="css/variables.css">
@@ -18,16 +18,21 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: var(--font-family-primary);
             background-color: var(--light);
             color: var(--dark);
+            line-height: 1.6;
         }
         
-        /* Header */
+        /* ===== HEADER & NAVBAR ===== */
         header {
             background: var(--white);
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 0;
             z-index: 200;
@@ -37,7 +42,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: var(--spacing-md) var(--spacing-lg);
+            padding: 16px 24px;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -46,78 +51,126 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: var(--spacing-sm);
-            font-weight: var(--font-weight-bold);
+            gap: 12px;
+            font-weight: 700;
             color: var(--primary);
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
         }
         
         .logo img {
-            height: 30px;
+            height: 35px;
             width: auto;
+            border-radius: 4px;
         }
         
         .nav-links {
             display: flex;
             list-style: none;
-            gap: var(--spacing-lg);
+            gap: 32px;
             align-items: center;
         }
         
         .nav-links a {
             text-decoration: none;
             color: var(--dark);
-            font-weight: var(--font-weight-medium);
-            transition: color var(--transition-base);
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: relative;
         }
         
         .nav-links a:hover {
             color: var(--primary);
         }
         
-        /* Main Container */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .admin-icon {
+            font-size: 18px;
+            color: var(--primary);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .admin-icon:hover {
+            transform: rotate(90deg);
+        }
+        
+        /* ===== MAIN CONTAINER ===== */
         .shop-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: var(--spacing-lg);
+            padding: 32px 24px;
             display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: var(--spacing-lg);
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
         }
         
-        /* Sidebar Filters */
+        /* ===== FILTERS SIDEBAR ===== */
         .filters-sidebar {
             background: var(--white);
-            padding: var(--spacing-lg);
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-sm);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             height: fit-content;
             position: sticky;
             top: 100px;
         }
         
+        .filters-sidebar h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--primary);
+        }
+        
         .filter-group {
-            margin-bottom: var(--spacing-lg);
-            padding-bottom: var(--spacing-lg);
-            border-bottom: 1px solid var(--gray-light);
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #e0e0e0;
         }
         
         .filter-group:last-child {
             border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
         
         .filter-title {
-            font-size: var(--font-size-base);
-            font-weight: var(--font-weight-bold);
+            font-size: 14px;
+            font-weight: 600;
             color: var(--dark);
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
+            user-select: none;
         }
         
         .filter-title i {
-            transition: transform var(--transition-base);
+            transition: transform 0.3s ease;
+            color: var(--primary);
         }
         
         .filter-title.collapsed i {
@@ -127,65 +180,81 @@
         .filter-options {
             display: flex;
             flex-direction: column;
-            gap: var(--spacing-sm);
+            gap: 12px;
         }
         
         .filter-option {
             display: flex;
             align-items: center;
-            gap: var(--spacing-sm);
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-option:hover {
+            padding-right: 4px;
         }
         
         .filter-option input {
             cursor: pointer;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             accent-color: var(--primary);
+            border-radius: 3px;
         }
         
         .filter-option label {
             cursor: pointer;
             flex: 1;
-            font-size: var(--font-size-sm);
-            color: var(--gray);
+            font-size: 13px;
+            color: #666;
+            transition: all 0.2s ease;
         }
         
         .filter-option input:checked + label {
             color: var(--primary);
-            font-weight: var(--font-weight-semibold);
+            font-weight: 600;
         }
         
-        /* Price Range Slider */
+        /* Price Range */
         .price-range-container {
             display: flex;
             flex-direction: column;
-            gap: var(--spacing-md);
+            gap: 16px;
         }
         
         .price-inputs {
             display: flex;
-            gap: var(--spacing-sm);
+            gap: 12px;
             align-items: center;
         }
         
         .price-input {
             flex: 1;
-            padding: 8px;
-            border: 1px solid var(--gray-light);
-            border-radius: var(--border-radius-md);
-            font-size: var(--font-size-sm);
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 12px;
             text-align: center;
+            transition: border-color 0.3s ease;
+        }
+        
+        .price-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
         }
         
         .price-separator {
-            color: var(--gray);
+            color: #999;
+            font-weight: 600;
         }
         
         .price-slider {
             width: 100%;
             height: 6px;
             border-radius: 3px;
-            background: var(--gray-light);
+            background: #e0e0e0;
             outline: none;
             -webkit-appearance: none;
         }
@@ -198,7 +267,12 @@
             border-radius: 50%;
             background: var(--primary);
             cursor: pointer;
+            transition: all 0.2s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .price-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
         }
         
         .price-slider::-moz-range-thumb {
@@ -208,230 +282,379 @@
             background: var(--primary);
             cursor: pointer;
             border: none;
+            transition: all 0.2s ease;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
-        /* Clear Filters Button */
-        .clear-filters-btn {
-            width: 100%;
-            padding: var(--spacing-md);
-            background: var(--gray-light);
-            border: none;
-            border-radius: var(--border-radius-md);
-            color: var(--dark);
-            font-weight: var(--font-weight-semibold);
-            cursor: pointer;
-            transition: all var(--transition-base);
-            margin-top: var(--spacing-lg);
+        .price-slider::-moz-range-thumb:hover {
+            transform: scale(1.2);
         }
         
-        .clear-filters-btn:hover {
-            background: var(--primary);
-            color: var(--white);
-        }
-        
-        /* Main Content */
-        .shop-content {
+        /* ===== PRODUCTS SECTION ===== */
+        .products-section {
             display: flex;
             flex-direction: column;
+            gap: 24px;
         }
         
-        /* Top Bar */
-        .shop-top-bar {
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--spacing-lg);
-            background: var(--white);
-            padding: var(--spacing-md);
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-sm);
+            flex-wrap: wrap;
+            gap: 16px;
         }
         
-        .results-info {
-            font-size: var(--font-size-sm);
-            color: var(--gray);
+        .section-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
         }
         
-        .sort-container {
+        .sort-controls {
             display: flex;
+            gap: 16px;
             align-items: center;
-            gap: var(--spacing-md);
+            flex-wrap: wrap;
         }
         
-        .sort-label {
-            font-size: var(--font-size-sm);
-            color: var(--gray);
-            font-weight: var(--font-weight-medium);
-        }
-        
-        .sort-select {
-            padding: 8px 12px;
-            border: 1px solid var(--gray-light);
-            border-radius: var(--border-radius-md);
-            font-size: var(--font-size-sm);
+        .sort-select, .view-toggle {
+            padding: 10px 16px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
             background: var(--white);
+            color: var(--dark);
+            font-size: 13px;
             cursor: pointer;
-            transition: all var(--transition-base);
+            transition: all 0.3s ease;
         }
         
-        .sort-select:hover,
-        .sort-select:focus {
+        .sort-select:hover, .view-toggle:hover {
             border-color: var(--primary);
-            outline: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
         
-        /* View Toggle */
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+        }
+        
         .view-toggle {
             display: flex;
-            gap: var(--spacing-sm);
+            gap: 8px;
+            padding: 8px 12px;
         }
         
-        .view-btn {
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--gray-light);
-            background: var(--white);
-            border-radius: var(--border-radius-md);
+        .view-toggle button {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #f0f0f0;
+            color: #999;
+            border-radius: 4px;
             cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--gray);
-            transition: all var(--transition-base);
         }
         
-        .view-btn.active {
+        .view-toggle button.active {
             background: var(--primary);
             color: var(--white);
-            border-color: var(--primary);
+        }
+        
+        .view-toggle button:hover {
+            background: var(--primary);
+            color: var(--white);
         }
         
         /* Products Grid */
-        .products-container {
+        .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: var(--spacing-lg);
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
         }
         
-        /* Empty State */
+        .products-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
-            padding: var(--spacing-2xl);
+            padding: 60px 24px;
             background: var(--white);
-            border-radius: var(--border-radius-lg);
+            border-radius: 12px;
+            color: #999;
         }
         
-        .empty-state-icon {
+        .empty-state i {
             font-size: 48px;
-            color: var(--gray-light);
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 16px;
+            color: #ddd;
         }
         
-        .empty-state-title {
-            font-size: var(--font-size-lg);
-            color: var(--dark);
-            margin-bottom: var(--spacing-sm);
-        }
-        
-        .empty-state-text {
-            color: var(--gray);
-            margin-bottom: var(--spacing-lg);
+        .empty-state p {
+            font-size: 16px;
+            font-weight: 500;
         }
         
         /* Pagination */
         .pagination {
             display: flex;
             justify-content: center;
-            gap: var(--spacing-sm);
-            margin-top: var(--spacing-2xl);
+            gap: 8px;
+            margin-top: 32px;
+            flex-wrap: wrap;
         }
         
-        .pagination-btn {
-            padding: 8px 12px;
-            border: 1px solid var(--gray-light);
+        .pagination button {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #ddd;
             background: var(--white);
-            border-radius: var(--border-radius-md);
+            color: var(--dark);
+            border-radius: 6px;
             cursor: pointer;
-            transition: all var(--transition-base);
-            font-size: var(--font-size-sm);
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
         
-        .pagination-btn:hover {
+        .pagination button:hover {
             border-color: var(--primary);
             color: var(--primary);
         }
         
-        .pagination-btn.active {
+        .pagination button.active {
             background: var(--primary);
             color: var(--white);
             border-color: var(--primary);
         }
         
-        /* Mobile Responsive */
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 48px 24px 24px;
+            margin-top: 64px;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .footer-section h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 24px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+        }
+        
+        /* ===== MOBILE RESPONSIVENESS ===== */
+        @media (max-width: 1024px) {
+            .shop-container {
+                grid-template-columns: 220px 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 20px;
+            }
+        }
+        
         @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 16px;
+                gap: 16px;
+            }
+            
+            .logo {
+                gap: 8px;
+                font-size: 16px;
+            }
+            
+            .logo img {
+                height: 28px;
+            }
+            
+            .nav-links {
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+            }
+            
+            .nav-links a {
+                font-size: 12px;
+            }
+            
+            .nav-links a::after {
+                display: none;
+            }
+            
             .shop-container {
                 grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px 12px;
             }
             
             .filters-sidebar {
-                position: static;
+                position: relative;
+                top: auto;
+                max-height: none;
+                overflow-y: visible;
+                margin-bottom: 24px;
+                padding: 20px;
             }
             
-            .shop-top-bar {
+            .filter-group {
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+            }
+            
+            .filter-title {
+                font-size: 13px;
+            }
+            
+            .filter-options {
+                gap: 10px;
+            }
+            
+            .filter-option label {
+                font-size: 12px;
+            }
+            
+            .section-header {
                 flex-direction: column;
-                gap: var(--spacing-md);
                 align-items: flex-start;
             }
             
-            .sort-container {
+            .section-header h1 {
+                font-size: 20px;
+            }
+            
+            .sort-controls {
                 width: 100%;
+                gap: 12px;
             }
             
-            .sort-select {
+            .sort-select, .view-toggle {
                 flex: 1;
+                min-width: 120px;
             }
             
-            .products-container {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 16px;
+            }
+            
+            .footer-content {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
             }
         }
         
         @media (max-width: 480px) {
-            .products-container {
-                grid-template-columns: 1fr;
+            .navbar {
+                padding: 10px 12px;
             }
             
-            .shop-top-bar {
-                flex-direction: column;
-                gap: var(--spacing-sm);
+            .logo {
+                gap: 6px;
+                font-size: 14px;
             }
-        }
-        
-        /* WhatsApp Float Button */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 60px;
-            height: 60px;
-            background: #25D366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 28px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            z-index: 999;
-            transition: all var(--transition-base);
-            text-decoration: none;
-        }
-        
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+            
+            .logo img {
+                height: 24px;
+            }
+            
+            .nav-links {
+                gap: 12px;
+            }
+            
+            .nav-links a {
+                font-size: 11px;
+            }
+            
+            .shop-container {
+                padding: 16px 8px;
+                gap: 16px;
+            }
+            
+            .filters-sidebar {
+                padding: 16px;
+            }
+            
+            .filter-title {
+                font-size: 12px;
+            }
+            
+            .section-header h1 {
+                font-size: 18px;
+            }
+            
+            .sort-controls {
+                flex-direction: column;
+            }
+            
+            .sort-select, .view-toggle {
+                width: 100%;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            footer {
+                padding: 32px 16px 16px;
+            }
         }
     </style>
 </head>
@@ -439,15 +662,15 @@
     <!-- Header -->
     <header>
         <div class="navbar">
-            <a href="pages/shop.html" class="logo">
+            <a href="index.html" class="logo">
                 <img src="images/marvello_logo.jpg" alt="Marvello Store Logo">
                 <span>Marvello</span>
             </a>
             <ul class="nav-links">
-                <li><a href="pages/shop.html">الرئيسية</a></li>
-                <li><a href="pages/shop.html" style="color: var(--primary);">المتجر</a></li>
-                <li><a href="#contact">تواصل معنا</a></li>
-                <li><a href="pages/admin.html" title="لوحة الإدارة" style="font-size: 18px; color: var(--primary);"><i class="fas fa-cog"></i></a></li>
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="pages/shop.html">المتجر</a></li>
+                <li><a href="#footer">تواصل معنا</a></li>
+                <li><a href="pages/admin.html" class="admin-icon" title="لوحة الإدارة"><i class="fas fa-cog"></i></a></li>
             </ul>
         </div>
     </header>
@@ -456,7 +679,7 @@
     <div class="shop-container">
         <!-- Sidebar Filters -->
         <aside class="filters-sidebar">
-            <h2 style="margin-bottom: var(--spacing-lg); color: var(--dark);">تصفية المنتجات</h2>
+            <h2>تصفية المنتجات</h2>
             
             <!-- Category Filter -->
             <div class="filter-group">
@@ -466,23 +689,19 @@
                 </div>
                 <div class="filter-options">
                     <div class="filter-option">
-                        <input type="checkbox" id="cat-all" value="all" checked>
+                        <input type="checkbox" id="cat-all" checked>
                         <label for="cat-all">جميع الفئات</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="cat-tshirts" value="tshirts" data-category="تيشيرتات">
-                        <label for="cat-tshirts">تيشيرتات</label>
+                        <input type="checkbox" id="cat-shirts">
+                        <label for="cat-shirts">تيشيرتات</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="cat-shirts" value="shirts" data-category="قمصان">
-                        <label for="cat-shirts">قمصان</label>
+                        <input type="checkbox" id="cat-pants">
+                        <label for="cat-pants">بنطلونات</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="cat-dresses" value="dresses" data-category="فساتين">
-                        <label for="cat-dresses">فساتين</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="cat-shoes" value="shoes" data-category="أحذية">
+                        <input type="checkbox" id="cat-shoes">
                         <label for="cat-shoes">أحذية</label>
                     </div>
                 </div>
@@ -495,12 +714,12 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="price-range-container">
+                    <input type="range" class="price-slider" id="priceSlider" min="0" max="1000" value="1000">
                     <div class="price-inputs">
-                        <input type="number" id="priceMin" class="price-input" placeholder="من" min="0" value="0">
+                        <input type="number" class="price-input" id="minPrice" placeholder="0" value="0">
                         <span class="price-separator">-</span>
-                        <input type="number" id="priceMax" class="price-input" placeholder="إلى" min="0" value="1000">
+                        <input type="number" class="price-input" id="maxPrice" placeholder="1000" value="1000">
                     </div>
-                    <input type="range" id="priceSlider" class="price-slider" min="0" max="1000" value="1000">
                 </div>
             </div>
             
@@ -512,28 +731,24 @@
                 </div>
                 <div class="filter-options">
                     <div class="filter-option">
-                        <input type="checkbox" id="size-xs" value="XS" data-size="XS">
+                        <input type="checkbox" id="size-xs">
                         <label for="size-xs">XS</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="size-s" value="S" data-size="S">
+                        <input type="checkbox" id="size-s">
                         <label for="size-s">S</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="size-m" value="M" data-size="M">
+                        <input type="checkbox" id="size-m">
                         <label for="size-m">M</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="size-l" value="L" data-size="L">
+                        <input type="checkbox" id="size-l">
                         <label for="size-l">L</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="size-xl" value="XL" data-size="XL">
+                        <input type="checkbox" id="size-xl">
                         <label for="size-xl">XL</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="size-2xl" value="2XL" data-size="2XL">
-                        <label for="size-2xl">2XL</label>
                     </div>
                 </div>
             </div>
@@ -546,100 +761,108 @@
                 </div>
                 <div class="filter-options">
                     <div class="filter-option">
-                        <input type="checkbox" id="color-black" value="أسود" data-color="أسود">
+                        <input type="checkbox" id="color-black">
                         <label for="color-black">أسود</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="color-white" value="أبيض" data-color="أبيض">
+                        <input type="checkbox" id="color-white">
                         <label for="color-white">أبيض</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="color-red" value="أحمر" data-color="أحمر">
+                        <input type="checkbox" id="color-red">
                         <label for="color-red">أحمر</label>
                     </div>
                     <div class="filter-option">
-                        <input type="checkbox" id="color-blue" value="أزرق" data-color="أزرق">
+                        <input type="checkbox" id="color-blue">
                         <label for="color-blue">أزرق</label>
                     </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="color-green" value="أخضر" data-color="أخضر">
-                        <label for="color-green">أخضر</label>
-                    </div>
                 </div>
             </div>
-            
-            <!-- Rating Filter -->
-            <div class="filter-group">
-                <div class="filter-title">
-                    <span>التقييم</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="filter-options">
-                    <div class="filter-option">
-                        <input type="checkbox" id="rating-5" value="5" data-rating="5">
-                        <label for="rating-5">★★★★★ (5 نجوم)</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="rating-4" value="4" data-rating="4">
-                        <label for="rating-4">★★★★ (4 نجوم وأعلى)</label>
-                    </div>
-                    <div class="filter-option">
-                        <input type="checkbox" id="rating-3" value="3" data-rating="3">
-                        <label for="rating-3">★★★ (3 نجوم وأعلى)</label>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Clear Filters -->
-            <button class="clear-filters-btn">مسح جميع الفلاتر</button>
         </aside>
 
-        <!-- Main Content -->
-        <div class="shop-content">
-            <!-- Top Bar -->
-            <div class="shop-top-bar">
-                <div class="results-info">
-                    عرض <span id="resultsCount">0</span> من <span id="totalCount">0</span> منتج
-                </div>
-                <div class="sort-container">
-                    <label class="sort-label">ترتيب حسب:</label>
+        <!-- Products Section -->
+        <section class="products-section">
+            <!-- Section Header -->
+            <div class="section-header">
+                <h1>المنتجات</h1>
+                <div class="sort-controls">
                     <select class="sort-select" id="sortSelect">
                         <option value="newest">الأحدث</option>
-                        <option value="price-low">السعر: من الأقل للأعلى</option>
-                        <option value="price-high">السعر: من الأعلى للأقل</option>
-                        <option value="best-selling">الأكثر مبيعاً</option>
-                        <option value="rating">الأعلى تقييماً</option>
+                        <option value="price-low">السعر: الأقل أولاً</option>
+                        <option value="price-high">السعر: الأعلى أولاً</option>
+                        <option value="popular">الأكثر مبيعاً</option>
+                        <option value="rating">التقييم</option>
                     </select>
-                </div>
-                <div class="view-toggle">
-                    <button class="view-btn active" id="gridView" title="عرض الشبكة">
-                        <i class="fas fa-th"></i>
-                    </button>
-                    <button class="view-btn" id="listView" title="عرض القائمة">
-                        <i class="fas fa-list"></i>
-                    </button>
+                    <div class="view-toggle">
+                        <button class="active" id="gridView" title="عرض شبكة">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button id="listView" title="عرض قائمة">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <!-- Products Grid -->
-            <div class="products-container" id="productsContainer">
-                <!-- Products will be loaded here -->
+            <div class="products-grid" id="productsContainer">
+                <!-- Products will be loaded here by JavaScript -->
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <p>لم يتم العثور على منتجات</p>
+                </div>
             </div>
 
             <!-- Pagination -->
             <div class="pagination" id="pagination">
-                <!-- Pagination will be generated here -->
+                <!-- Pagination will be generated by JavaScript -->
             </div>
-        </div>
+        </section>
     </div>
 
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/201097792552" class="whatsapp-float" target="_blank" title="تواصل معنا عبر واتساب">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>عن Marvello</h3>
+                <p style="font-size: 13px; color: #ccc; line-height: 1.6;">
+                    متجر Marvello يقدم أفضل تشكيلة من الملابس والإكسسوارات بجودة عالية وأسعار منافسة.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="pages/shop.html">المتجر</a></li>
+                    <li><a href="pages/privacy-policy.html">سياسة الخصوصية</a></li>
+                    <li><a href="pages/terms-of-service.html">شروط الخدمة</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تواصل معنا</h3>
+                <ul>
+                    <li><a href="mailto:info@marvello.com"><i class="fas fa-envelope"></i> البريد الإلكتروني</a></li>
+                    <li><a href="https://wa.me/201097792552" target="_blank"><i class="fas fa-phone"></i> واتس آب</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> مصر</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تابعنا</h3>
+                <ul style="flex-direction: row; gap: 16px;">
+                    <li><a href="#" title="فيسبوك"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#" title="إنستجرام"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="#" title="تويتر"><i class="fab fa-twitter"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Marvello Store. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
 
     <!-- Scripts -->
     <script src="js/product-cards.js"></script>
     <script src="js/shop-filters.js"></script>
+    <script src="js/sidebar-cart.js"></script>
 </body>
 </html>
