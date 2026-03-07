@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Bag — Marvello</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="announcement">✦ Free Shipping on orders over EGP 2,000</div>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Marvello<span class="star">✦</span></a>
+    <ul class="nav-menu">
+      <li><a href="../index.html">Home</a></li><li><a href="shop.html">Shop</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="auth.html" class="nav-icon-btn"><i class="far fa-user"></i></a>
+      <button class="nav-icon-btn wish-toggle" style="position:relative"><i class="far fa-heart"></i><span class="nav-badge wish-badge" style="display:none">0</span></button>
+      <button class="nav-icon-btn cart-toggle" style="position:relative"><i class="fas fa-shopping-bag"></i><span class="nav-badge cart-badge" style="display:none">0</span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="cart-page">
+    <h1 class="cart-page-title">Your Shopping Bag</h1>
+    <div id="cartPageContent"></div>
+  </div>
+</div>
+
+<footer class="footer"><div class="container"><div class="footer-bottom"><span class="footer-copy">© 2026 Marvello Store.</span></div></div></footer>
+
+<div class="overlay"></div>
+<div class="cart-drawer">
+  <div class="drawer-header"><span class="drawer-title">Shopping Bag</span><button class="drawer-close"><i class="fas fa-times"></i></button></div>
+  <div class="drawer-body"></div>
+  <div class="drawer-footer">
+    <div class="drawer-subtotal"><span class="drawer-subtotal-label">Subtotal</span><span class="drawer-subtotal-val">EGP 0</span></div>
+    <p class="drawer-note">Shipping at checkout.</p>
+    <a class="drawer-checkout" href="checkout.html">Checkout</a>
+  </div>
+</div>
+<div class="wishlist-drawer">
+  <div class="drawer-header"><span class="drawer-title">Wishlist</span><button class="drawer-close" onclick="closeWishlist()"><i class="fas fa-times"></i></button></div>
+  <div class="drawer-body"></div>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+function renderCartPage() {
+  const el = document.getElementById('cartPageContent');
+  if (cart.length === 0) {
+    el.innerHTML = `
+      <div style="text-align:center;padding:100px 0;">
+        <i class="fas fa-shopping-bag" style="font-size:4rem;color:var(--gray-200);margin-bottom:20px;display:block;"></i>
+        <p style="font-family:var(--font-display);font-size:2rem;margin-bottom:12px;">Your bag is empty</p>
+        <p style="color:var(--gray-400);font-size:14px;margin-bottom:32px;">Looks like you haven't added anything yet.</p>
+        <a href="shop.html" class="btn btn-black">Continue Shopping</a>
+      </div>`;
+    return;
+  }
+
+  const couponInput = `
+    <div class="coupon-box">
+      <input type="text" id="couponInput" placeholder="Coupon code" style="flex:1;border:1.5px solid var(--gray-200);padding:12px 16px;font-size:12px;outline:none;">
+      <button onclick="handleCoupon()" style="background:var(--black);color:var(--white);padding:12px 18px;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;transition:var(--transition);">Apply</button>
+    </div>
+    <div id="couponMsg"></div>`;
+
+  el.innerHTML = `
+    <div class="cart-layout">
+      <div>
+        <div class="cart-table-head">
+          <span>Product</span><span>Price</span><span>Qty</span><span>Total</span>
+        </div>
+        ${cart.map(item => `
+          <div class="cart-row">
+            <div class="cart-product">
+              <img class="cart-product-img" src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=200&q=60'">
+              <div>
+                <div class="cart-product-name">${item.name}</div>
+                <div class="cart-product-size">Size: ${item.size}</div>
+                <button onclick="removeFromCart(${item.id},'${item.size}');renderCartPage();" style="font-size:11px;color:var(--gray-400);text-decoration:underline;margin-top:6px;transition:var(--transition);" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--gray-400)'">Remove</button>
+              </div>
+            </div>
+            <span style="font-size:14px;font-weight:500;">${fmt(item.price)}</span>
+            <div class="qty-control">
+              <button onclick="updateQty(${item.id},'${item.size}',-1);renderCartPage();"><i class="fas fa-minus"></i></button>
+              <span>${item.qty}</span>
+              <button onclick="updateQty(${item.id},'${item.size}',1);renderCartPage();"><i class="fas fa-plus"></i></button>
+            </div>
+            <span style="font-size:14px;font-weight:600;">${fmt(item.price*item.qty)}</span>
+          </div>`).join('')}
+        <div style="display:flex;gap:16px;margin-top:28px;">
+          <a href="shop.html" class="btn btn-outline"><i class="fas fa-arrow-left" style="font-size:.75rem"></i> Continue Shopping</a>
+        </div>
+      </div>
+      <div class="order-summary">
+        <div class="order-summary-title">Order Summary</div>
+        ${couponInput}
+        <div class="summary-row"><span>Subtotal</span><span>${fmt(cartSubtotal())}</span></div>
+        ${appliedCoupon ? `<div class="summary-row" style="color:var(--green)"><span>Discount (${appliedCoupon})</span><span>-${fmt(cartDiscount())}</span></div>` : ''}
+        <div class="summary-row"><span>Shipping</span><span>${cartShipping()===0?'<span style="color:var(--green)">Free</span>':fmt(cartShipping())}</span></div>
+        ${cartShipping()>0 ? `<div style="font-size:11px;color:var(--gray-400);margin-bottom:12px;">Add ${fmt(2000-cartSubtotal()+cartDiscount())} more for free shipping</div>` : ''}
+        <div class="summary-row total"><span>Total</span><span>${fmt(cartTotal())}</span></div>
+        <a href="checkout.html" class="btn btn-black" style="width:100%;justify-content:center;margin-top:20px;">
+          <i class="fas fa-lock" style="font-size:.75rem"></i> Secure Checkout
+        </a>
+        <div style="display:flex;justify-content:center;gap:12px;margin-top:16px;font-size:11px;color:var(--gray-400);">
+          <span><i class="fas fa-credit-card"></i> Visa</span>
+          <span><i class="fas fa-credit-card"></i> Mastercard</span>
+          <span>Fawry</span>
+          <span>COD</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+function handleCoupon() {
+  const code = document.getElementById('couponInput')?.value;
+  const ok = applyCoupon(code);
+  const msg = document.getElementById('couponMsg');
+  if (msg) msg.innerHTML = ok
+    ? `<div class="coupon-applied"><i class="fas fa-check-circle"></i> ${COUPONS[code.toUpperCase()].label} applied!</div>`
+    : `<div style="font-size:12px;color:var(--red);margin-top:6px;"><i class="fas fa-times-circle"></i> Invalid code</div>`;
+  if (ok) renderCartPage();
+}
+
+renderCartPage();
+</script>
+</body>
+</html>

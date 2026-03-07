@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Marvello — Premium Egyptian Fashion Brand. Shop the new collection 2026.">
+  <title>Marvello ✦ Modern Fashion Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swapfamily=Cinzel:wght@400;500https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swapfamily=Jost:wght@200;300;400;500;600https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swapdisplay=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announcement">
+  ✦ Free Shipping on orders over EGP 2,000 &nbsp;·&nbsp; New Collection 2026
+  <a href="pages/shop.html">Shop Now →</a>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Marvello<span class="star">✦</span></a>
+    <ul class="nav-menu">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="pages/shop.html">Shop</a></li>
+      <li><a href="pages/shop.html?cat=jackets">Jackets</a></li>
+      <li><a href="pages/shop.html?cat=pants">Pants</a></li>
+      <li><a href="pages/shop.html?cat=accessories">Accessories</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-search-bar">
+        <i class="fas fa-search" style="font-size:.75rem;color:var(--gray-400)"></i>
+        <input id="navSearch" type="text" placeholder="Search products...">
+      </div>
+      <a href="pages/auth.html" class="nav-icon-btn" title="Account"><i class="far fa-user"></i></a>
+      <button class="nav-icon-btn wish-toggle" title="Wishlist" style="position:relative">
+        <i class="far fa-heart"></i>
+        <span class="nav-badge wish-badge" style="display:none">0</span>
+      </button>
+      <button class="nav-icon-btn cart-toggle" title="Cart" style="position:relative">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="nav-badge cart-badge" style="display:none">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" style="display:none;">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <span class="nav-logo">Marvello<span class="star">✦</span></span>
+    <button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button>
+  </div>
+  <a href="index.html">Home</a>
+  <a href="pages/shop.html">Shop</a>
+  <a href="pages/shop.html?cat=jackets">Jackets</a>
+  <a href="pages/shop.html?cat=pants">Pants</a>
+  <a href="pages/shop.html?cat=accessories">Accessories</a>
+  <a href="pages/auth.html">Account</a>
+  <a href="pages/tracking.html">Track Order</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-season">Spring / Summer 2026</div>
+    <h1 class="hero-title">
+      Dress With<br>
+      <em>Intention,</em><br>
+      <span class="line2">Live In Style</span>
+    </h1>
+    <p class="hero-desc">
+      Marvello brings you refined essentials and statement pieces crafted for those who appreciate quality above all else. Egyptian brand, global standards.
+    </p>
+    <div class="hero-cta">
+      <a href="pages/shop.html" class="btn btn-black">
+        Shop Now <i class="fas fa-arrow-right" style="font-size:.75rem"></i>
+      </a>
+      <a href="pages/shop.html?badge=new" class="btn btn-outline">New Arrivals</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      Scroll to explore
+    </div>
+  </div>
+  <div class="hero-right">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=80" alt="Marvello Collection">
+    <div class="hero-img-overlay"></div>
+    <div class="hero-tag">
+      <div class="hero-tag-sub">Featured</div>
+      <div class="hero-tag-main">Spring 2026 Collection</div>
+    </div>
+    <!-- Real Social Media Links -->
+    <div class="hero-social">
+      <a href="https://www.facebook.com/profile.php?id=61572199927543" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.tiktok.com/@marvello775" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.instagram.com/mar_vellostore" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://t.me/MarvelloStore" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-sep">●</span> Free Returns</span>
+    <span class="marquee-item"><span class="marquee-sep">●</span> Premium Egyptian Brand</span>
+    <span class="marquee-item"><span class="marquee-sep">●</span> New Collection 2026</span>
+    <span class="marquee-item"><span class="marquee-sep">●</span> Secure Payment</span>
+    <span class="marquee-item"><span class="marquee-sep">●</span> Fast Delivery Nationwide</span>
+    <span class="marquee-item"><span class="marquee-sep">●</span> Authentic Premium Materials</span>
+    <span class="marquee-item"><span class="marquee-sep">●</span> Free Returns</span>
+    <span class="marquee-item"><span class="marquee-sep">●</span> Premium Egyptian Brand</span>
+    <span class="marquee-item"><span class="marquee-sep">●</span> New Collection 2026</span>
+    <span class="marquee-item"><span class="marquee-sep">●</span> Secure Payment</span>
+    <span class="marquee-item"><span class="marquee-sep">●</span> Fast Delivery Nationwide</span>
+    <span class="marquee-item"><span class="marquee-sep">●</span> Authentic Premium Materials</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-label">Browse By</span>
+        <h2 class="section-title">Shop Categories</h2>
+      </div>
+      <a href="pages/shop.html" class="btn btn-outline">All Categories</a>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="location.href='pages/shop.html?cat=jackets'">
+        <img class="cat-img" src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800&q=80" alt="Jackets">
+        <div class="cat-overlay">
+          <div class="cat-name">Jackets & Outerwear</div>
+          <div class="cat-count">12 items</div>
+        </div>
+        <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-card" onclick="location.href='pages/shop.html?cat=pants'">
+        <img class="cat-img" src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=80" alt="Pants">
+        <div class="cat-overlay">
+          <div class="cat-name">Pants</div>
+          <div class="cat-count">18 items</div>
+        </div>
+        <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-card" onclick="location.href='pages/shop.html?cat=shoes'">
+        <img class="cat-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Shoes">
+        <div class="cat-overlay">
+          <div class="cat-name">Shoes</div>
+          <div class="cat-count">9 items</div>
+        </div>
+        <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+      </div>
+      <div class="cat-card" onclick="location.href='pages/shop.html?cat=accessories'">
+        <img class="cat-img" src="https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfa?w=600&q=80" alt="Accessories">
+        <div class="cat-overlay">
+          <div class="cat-name">Accessories</div>
+          <div class="cat-count">24 items</div>
+        </div>
+        <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-label">Handpicked For You</span>
+        <h2 class="section-title">Featured Products</h2>
+      </div>
+      <a href="pages/shop.html" class="btn btn-outline">View All</a>
+    </div>
+    <div class="products-tabs">
+      <button class="tab-btn active" data-filter="all">All</button>
+      <button class="tab-btn" data-filter="new">New Arrivals</button>
+      <button class="tab-btn" data-filter="sale">On Sale</button>
+      <button class="tab-btn" data-filter="jackets">Jackets</button>
+      <button class="tab-btn" data-filter="pants">Pants</button>
+    </div>
+    <div class="products-grid" id="featuredProducts"></div>
+  </div>
+</section>
+
+<!-- FEATURED BANNERS -->
+<div class="featured-banner">
+  <div class="banner-item" onclick="location.href='pages/shop.html?cat=shirts'">
+    <img class="banner-img" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1000&q=80" alt="Essentials">
+    <div class="banner-overlay">
+      <div class="banner-sub">New Season</div>
+      <h3 class="banner-title">The Essentials<br>Collection</h3>
+      <span class="banner-link">Discover Now <i class="fas fa-arrow-right"></i></span>
+    </div>
+  </div>
+  <div class="banner-item" onclick="location.href='pages/shop.html?cat=jackets'">
+    <img class="banner-img" src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1000&q=80" alt="Menswear">
+    <div class="banner-overlay">
+      <div class="banner-sub">Exclusive Drop</div>
+      <h3 class="banner-title">Premium<br>Outerwear</h3>
+      <span class="banner-link">Shop The Look <i class="fas fa-arrow-right"></i></span>
+    </div>
+  </div>
+</div>
+
+<!-- INSTAGRAM -->
+<section class="instagram-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-label">Follow Us</span>
+        <h2 class="section-title">@mar_vellostore</h2>
+      </div>
+      <a href="https://www.instagram.com/mar_vellostore" target="_blank" class="btn btn-outline">
+        <i class="fab fa-instagram"></i> Follow on Instagram
+      </a>
+    </div>
+    <div class="ig-grid">
+      <div class="ig-item"><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=70" alt="ig1" loading="lazy"><div class="ig-overlay"><i class="fab fa-instagram"></i></div></div>
+      <div class="ig-item"><img src="https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=400&q=70" alt="ig2" loading="lazy"><div class="ig-overlay"><i class="fab fa-instagram"></i></div></div>
+      <div class="ig-item"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=70" alt="ig3" loading="lazy"><div class="ig-overlay"><i class="fab fa-instagram"></i></div></div>
+      <div class="ig-item"><img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=70" alt="ig4" loading="lazy"><div class="ig-overlay"><i class="fab fa-instagram"></i></div></div>
+      <div class="ig-item"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=70" alt="ig5" loading="lazy"><div class="ig-overlay"><i class="fab fa-instagram"></i></div></div>
+      <div class="ig-item"><img src="https://images.unsplash.com/photo-1556906781-9a412961a28f?w=400&q=70" alt="ig6" loading="lazy"><div class="ig-overlay"><i class="fab fa-instagram"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="newsletter-bg-text">M</div>
+  <div class="container newsletter-content">
+    <span class="section-label" style="text-align:center;display:block;">Stay Updated</span>
+    <h2 class="newsletter-title">Join The Marvello Circle</h2>
+    <p class="newsletter-sub">Exclusive offers, new arrivals, and style inspiration — directly to your inbox.</p>
+    <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+      <input type="email" placeholder="Enter your email address..." required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Marvello<span class="star">✦</span></div>
+        <p class="footer-desc">Premium Egyptian fashion brand — where quality meets style. Crafted for those who appreciate the finest.</p>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/profile.php?id=61572199927543" target="_blank" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.tiktok.com/@marvello775" target="_blank" class="social-link" title="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/mar_vellostore" target="_blank" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://t.me/MarvelloStore" target="_blank" class="social-link" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+          <a href="https://wa.me/201097792552" target="_blank" class="social-link" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Shop</div>
+        <ul class="footer-links">
+          <li><a href="pages/shop.html">All Products</a></li>
+          <li><a href="pages/shop.html?badge=new">New Arrivals</a></li>
+          <li><a href="pages/shop.html?badge=sale">Sale</a></li>
+          <li><a href="pages/shop.html?cat=jackets">Jackets</a></li>
+          <li><a href="pages/shop.html?cat=accessories">Accessories</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Help</div>
+        <ul class="footer-links">
+          <li><a href="pages/tracking.html">Track Your Order</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns & Exchanges</a></li>
+          <li><a href="https://wa.me/201097792552" target="_blank">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About Marvello</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Marvello Store. All rights reserved. Made with ♥ in Egypt.</span>
+      <div class="footer-payments">
+        <span class="payment-tag">VISA</span>
+        <span class="payment-tag">MASTERCARD</span>
+        <span class="payment-tag">FAWRY</span>
+        <span class="payment-tag">COD</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- OVERLAY -->
+<div class="overlay"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer">
+  <div class="drawer-header">
+    <span class="drawer-title">Shopping Bag <span id="cartCount" style="font-size:.8rem;color:var(--gray-400)"></span></span>
+    <button class="drawer-close"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="drawer-body"></div>
+  <div class="drawer-footer">
+    <div class="drawer-subtotal">
+      <span class="drawer-subtotal-label">Subtotal</span>
+      <span class="drawer-subtotal-val">EGP 0</span>
+    </div>
+    <p class="drawer-note">Shipping & taxes calculated at checkout.</p>
+    <a class="drawer-checkout" href="pages/checkout.html">Proceed to Checkout</a>
+    <a class="drawer-view-cart" href="pages/cart.html">View Full Bag</a>
+  </div>
+</div>
+
+<!-- WISHLIST DRAWER -->
+<div class="wishlist-drawer">
+  <div class="drawer-header">
+    <span class="drawer-title">Wishlist</span>
+    <button class="drawer-close" onclick="closeWishlist()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="drawer-body"></div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  // Products tabs
+  let activeFilter = 'all';
+  function filterProducts() {
+    let list = PRODUCTS;
+    if (activeFilter === 'new')  list = PRODUCTS.filter(p => p.badge === 'new');
+    else if (activeFilter === 'sale') list = PRODUCTS.filter(p => p.badge === 'sale');
+    else if (activeFilter !== 'all') list = PRODUCTS.filter(p => p.category === activeFilter);
+
+    // Show skeleton first, then render
+    renderProducts('featuredProducts', [], true);
+    setTimeout(() => renderProducts('featuredProducts', list), 600);
+  }
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      filterProducts();
+    });
+  });
+
+  // Nav search
+  document.getElementById('navSearch')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.value.trim()) {
+      window.location.href = `pages/shop.html?q=${encodeURIComponent(e.target.value.trim())}`;
+    }
+  });
+
+  // Newsletter
+  function handleNewsletter(e) {
+    e.preventDefault();
+    toast('<i class="fas fa-check-circle"></i> Subscribed! Welcome to the Marvello Circle.');
+    e.target.reset();
+  }
+
+  // Counter animation on hero stats
+  filterProducts();
+</script>
+</body>
+</html>
