@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — Marvello</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="announcement">✦ Free Shipping on orders over EGP 2,000</div>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Marvello<span class="star">✦</span></a>
+    <ul class="nav-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="auth.html" class="nav-icon-btn"><i class="far fa-user"></i></a>
+      <button class="nav-icon-btn wish-toggle" style="position:relative"><i class="far fa-heart"></i><span class="nav-badge wish-badge" style="display:none">0</span></button>
+      <button class="nav-icon-btn cart-toggle" style="position:relative"><i class="fas fa-shopping-bag"></i><span class="nav-badge cart-badge" style="display:none">0</span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="product-detail">
+    <div class="breadcrumb" style="margin-bottom:32px;">
+      <a href="../index.html">Home</a> / <a href="shop.html">Shop</a> / <span id="pdBreadcrumb">Product</span>
+    </div>
+    <div class="detail-grid" id="productContent">
+      <!-- Skeleton -->
+      <div style="display:grid;grid-template-columns:76px 1fr;gap:10px;">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="skeleton" style="width:76px;height:96px;"></div>
+          <div class="skeleton" style="width:76px;height:96px;"></div>
+        </div>
+        <div class="skeleton" style="aspect-ratio:3/4;"></div>
+      </div>
+      <div style="padding-top:8px;">
+        <div class="skeleton skeleton-line w-30" style="margin-bottom:16px;"></div>
+        <div class="skeleton skeleton-line" style="height:32px;margin-bottom:12px;"></div>
+        <div class="skeleton skeleton-line w-50" style="margin-bottom:24px;"></div>
+        <div class="skeleton skeleton-line w-80" style="margin-bottom:8px;"></div>
+        <div class="skeleton skeleton-line w-80" style="margin-bottom:8px;"></div>
+        <div class="skeleton skeleton-line w-60"></div>
+      </div>
+    </div>
+    <div id="reviewsContainer" style="margin-top:64px;"></div>
+  </div>
+</div>
+
+<!-- Related Products -->
+<section style="padding:40px 0 100px;background:var(--gray-100);">
+  <div class="container">
+    <div class="section-header">
+      <div><span class="section-label">You May Also Like</span><h2 class="section-title">Related Products</h2></div>
+      <a href="shop.html" class="btn btn-outline">View All</a>
+    </div>
+    <div class="products-grid" id="relatedProducts" style="margin-top:36px;"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Marvello Store. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/profile.php?id=61572199927543" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/mar_vellostore" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/201097792552" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="overlay"></div>
+<div class="cart-drawer">
+  <div class="drawer-header"><span class="drawer-title">Shopping Bag</span><button class="drawer-close"><i class="fas fa-times"></i></button></div>
+  <div class="drawer-body"></div>
+  <div class="drawer-footer">
+    <div class="drawer-subtotal"><span class="drawer-subtotal-label">Subtotal</span><span class="drawer-subtotal-val">EGP 0</span></div>
+    <p class="drawer-note">Shipping calculated at checkout.</p>
+    <a class="drawer-checkout" href="checkout.html">Proceed to Checkout</a>
+  </div>
+</div>
+<div class="wishlist-drawer">
+  <div class="drawer-header"><span class="drawer-title">Wishlist</span><button class="drawer-close" onclick="closeWishlist()"><i class="fas fa-times"></i></button></div>
+  <div class="drawer-body"></div>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+  const productId = parseInt(new URLSearchParams(window.location.search).get('id')) || 1;
+  const p = PRODUCTS.find(x => x.id === productId) || PRODUCTS[0];
+
+  let selectedSize  = p.sizes[0] || 'M';
+  let selectedColor = p.colors?.[0] || 'black';
+  let pdQty = 1;
+  let mainImgIdx = 0;
+
+  function renderProduct() {
+    document.title = `${p.name} — Marvello`;
+    document.getElementById('pdBreadcrumb').textContent = p.name;
+
+    const imgs = p.images && p.images.length > 1 ? p.images : [p.image, p.image];
+    const avgRating = 4.7;
+
+    document.getElementById('productContent').innerHTML = `
+      <!-- Gallery -->
+      <div class="gallery">
+        <div class="thumb-list">
+          ${imgs.map((img, i) => `
+            <img class="thumb ${i===0?'active':''}" src="${img}" alt="${p.name} ${i+1}"
+                 onclick="switchImg(${i})" onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=200&q=60'">
+          `).join('')}
+        </div>
+        <div class="main-img-wrap">
+          <img class="main-img" id="mainImg" src="${imgs[0]}"
+               alt="${p.name}" onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=60'">
+          <div class="zoom-lens"></div>
+          ${p.badge ? `<span class="product-badge badge-${p.badge}" style="top:16px;left:16px;">${p.badge}</span>` : ''}
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="detail-info">
+        <div class="detail-category">${p.category.toUpperCase()}</div>
+        <h1 class="detail-name">${p.name}</h1>
+        <div class="detail-rating">
+          <span class="detail-stars">${'★'.repeat(Math.round(p.rating))}${'☆'.repeat(5-Math.round(p.rating))}</span>
+          <span class="detail-rating-count" onclick="document.getElementById('reviewsContainer').scrollIntoView({behavior:'smooth'})">${p.rating} · ${p.reviews} reviews</span>
+        </div>
+        <div class="detail-price">
+          ${fmt(p.price)}
+          ${p.oldPrice ? `<span class="old">${fmt(p.oldPrice)}</span>` : ''}
+        </div>
+        <p class="detail-desc">${p.description}</p>
+
+        <!-- Size -->
+        <div class="detail-label">Size — <span id="selectedSizeLabel">${selectedSize}</span></div>
+        <div class="detail-sizes">
+          ${p.sizes.map(s => `
+            <button class="detail-size-btn ${s===selectedSize?'sel':''}" onclick="selectSize(this,'${s}')">${s}</button>
+          `).join('')}
+        </div>
+
+        <!-- Color -->
+        ${p.colors && p.colors.length ? `
+        <div class="detail-label">Color — <span id="selectedColorLabel">${selectedColor}</span></div>
+        <div class="detail-colors">
+          ${p.colors.map((c,i) => {
+            const clrMap = {black:'#0a0a0a',white:'#f5f0e8',gray:'#6b6560',beige:'#d4ae72',brown:'#8B5E3C'};
+            return `<div class="color-dot ${i===0?'sel':''}" style="background:${clrMap[c]||c}"
+                         title="${c}" onclick="selectColor(this,'${c}')"></div>`;
+          }).join('')}
+        </div>` : ''}
+
+        <!-- Qty -->
+        <div class="detail-label" style="margin-top:20px;">Quantity</div>
+        <div class="detail-qty">
+          <div class="qty-box">
+            <button onclick="pdQty=Math.max(1,pdQty-1);document.getElementById('pdQtyVal').textContent=pdQty">−</button>
+            <span id="pdQtyVal">1</span>
+            <button onclick="pdQty++;document.getElementById('pdQtyVal').textContent=pdQty">+</button>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="detail-btns">
+          <button class="btn-add-cart-lg" onclick="handleAddToCart()">
+            <i class="fas fa-shopping-bag"></i> Add to Bag
+          </button>
+          <button class="btn-wishlist-lg ${isWishlisted(p.id)?'wishlisted':''}" id="wishBtn" onclick="handleWishlist()">
+            <i class="${isWishlisted(p.id)?'fas':'far'} fa-heart"></i>
+            ${isWishlisted(p.id)?'Saved to Wishlist':'Save to Wishlist'}
+          </button>
+        </div>
+
+        <!-- Features -->
+        <div class="detail-features">
+          <div class="feature-row"><i class="fas fa-truck"></i> Free shipping on orders over EGP 2,000</div>
+          <div class="feature-row"><i class="fas fa-undo"></i> Free returns within 30 days</div>
+          <div class="feature-row"><i class="fas fa-shield-alt"></i> Authentic premium quality guaranteed</div>
+          <div class="feature-row"><i class="fab fa-whatsapp" style="color:#25D366"></i>
+            <a href="https://wa.me/201097792552?text=I'm interested in ${encodeURIComponent(p.name)}" target="_blank" style="color:inherit;">Chat with us on WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function switchImg(idx) {
+    mainImgIdx = idx;
+    const imgs = p.images && p.images.length > 1 ? p.images : [p.image, p.image];
+    document.getElementById('mainImg').src = imgs[idx];
+    document.querySelectorAll('.thumb').forEach((t,i) => t.classList.toggle('active', i===idx));
+  }
+
+  function selectSize(btn, size) {
+    selectedSize = size;
+    document.querySelectorAll('.detail-size-btn').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    document.getElementById('selectedSizeLabel').textContent = size;
+  }
+
+  function selectColor(dot, color) {
+    selectedColor = color;
+    document.querySelectorAll('.detail-colors .color-dot').forEach(d => d.classList.remove('sel'));
+    dot.classList.add('sel');
+    document.getElementById('selectedColorLabel').textContent = color;
+  }
+
+  function handleAddToCart() {
+    addToCart(p.id, selectedSize, pdQty);
+    openCart();
+  }
+
+  function handleWishlist() {
+    toggleWishlist(p.id);
+    const btn = document.getElementById('wishBtn');
+    const wishlisted = isWishlisted(p.id);
+    btn.className = `btn-wishlist-lg ${wishlisted?'wishlisted':''}`;
+    btn.innerHTML = `<i class="${wishlisted?'fas':'far'} fa-heart"></i> ${wishlisted?'Saved to Wishlist':'Save to Wishlist'}`;
+  }
+
+  // Render page
+  renderProduct();
+  renderReviews(p.id, 'reviewsContainer');
+
+  // Related
+  const related = PRODUCTS.filter(x => x.id !== p.id && (x.category === p.category || Math.random() > 0.5)).slice(0,4);
+  renderProducts('relatedProducts', related);
+</script>
+</body>
+</html>

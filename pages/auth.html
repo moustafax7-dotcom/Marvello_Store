@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account — Marvello</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="auth-layout">
+  <!-- Visual Side -->
+  <div class="auth-visual">
+    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=80" alt="Marvello">
+    <div class="hero-img-overlay"></div>
+    <div class="auth-visual-text">
+      <span class="section-label" style="color:var(--gold-light)">Premium Fashion</span>
+      <h2>Style is a way to say who you are without having to speak.</h2>
+    </div>
+  </div>
+
+  <!-- Form Side -->
+  <div class="auth-form-panel">
+    <a href="../index.html" class="auth-logo-link">Marvello<span class="star">✦</span></a>
+    <h1 class="auth-title" id="authTitle">Welcome Back</h1>
+    <p class="auth-sub" id="authSub">Sign in to your Marvello account</p>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="loginTab" onclick="switchTab('login')">Sign In</button>
+      <button class="auth-tab" id="registerTab" onclick="switchTab('register')">Create Account</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="loginForm">
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-600);">Email</label>
+        <input id="loginEmail" type="email" class="form-group input" placeholder="your@email.com"
+               style="width:100%;padding:13px 16px;border:1.5px solid var(--gray-200);background:var(--white);font-size:13px;outline:none;transition:var(--transition);"
+               onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--gray-200)'">
+      </div>
+      <div class="form-group" style="margin-bottom:24px;position:relative;">
+        <label style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-600);">Password</label>
+        <input id="loginPass" type="password" class="form-group input" placeholder="Your password"
+               style="width:100%;padding:13px 40px 13px 16px;border:1.5px solid var(--gray-200);background:var(--white);font-size:13px;outline:none;transition:var(--transition);"
+               onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--gray-200)'">
+        <button class="eye-btn" onclick="togglePass('loginPass',this)" type="button"><i class="far fa-eye"></i></button>
+      </div>
+      <button class="btn btn-black" style="width:100%;justify-content:center;padding:16px;" onclick="handleLogin()">
+        <i class="fas fa-sign-in-alt" style="font-size:.8rem"></i> Sign In
+      </button>
+      <div class="auth-divider">or</div>
+      <div style="font-size:12px;color:var(--gray-400);text-align:center;">
+        Admin demo: <strong>admin@marvello.com</strong> / <strong>admin123</strong>
+      </div>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="registerForm" style="display:none;">
+      <div class="form-row" style="margin-bottom:14px;">
+        <div class="form-group" style="margin:0;">
+          <label style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-600);display:block;margin-bottom:6px;">First Name</label>
+          <input id="regFname" type="text" placeholder="Ahmed"
+                 style="width:100%;padding:13px 16px;border:1.5px solid var(--gray-200);background:var(--white);font-size:13px;outline:none;transition:var(--transition);"
+                 onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--gray-200)'">
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-600);display:block;margin-bottom:6px;">Last Name</label>
+          <input id="regLname" type="text" placeholder="Mohamed"
+                 style="width:100%;padding:13px 16px;border:1.5px solid var(--gray-200);background:var(--white);font-size:13px;outline:none;transition:var(--transition);"
+                 onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--gray-200)'">
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-600);display:block;margin-bottom:6px;">Email</label>
+        <input id="regEmail" type="email" placeholder="your@email.com"
+               style="width:100%;padding:13px 16px;border:1.5px solid var(--gray-200);background:var(--white);font-size:13px;outline:none;transition:var(--transition);"
+               onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--gray-200)'">
+      </div>
+      <div class="form-group" style="margin-bottom:14px;position:relative;">
+        <label style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-600);display:block;margin-bottom:6px;">Password</label>
+        <input id="regPass" type="password" placeholder="Min. 8 characters"
+               style="width:100%;padding:13px 40px 13px 16px;border:1.5px solid var(--gray-200);background:var(--white);font-size:13px;outline:none;transition:var(--transition);"
+               onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--gray-200)'">
+        <button class="eye-btn" onclick="togglePass('regPass',this)" type="button"><i class="far fa-eye"></i></button>
+      </div>
+      <div class="form-group" style="margin-bottom:24px;flex-direction:row;align-items:center;gap:10px;display:flex;">
+        <input type="checkbox" id="terms" style="accent-color:var(--black)">
+        <label for="terms" style="font-size:12px;color:var(--gray-600);">I agree to the <a href="#" style="color:var(--black);text-decoration:underline;">Terms & Privacy Policy</a></label>
+      </div>
+      <button class="btn btn-black" style="width:100%;justify-content:center;padding:16px;" onclick="handleRegister()">
+        <i class="fas fa-user-plus" style="font-size:.8rem"></i> Create Account
+      </button>
+    </div>
+
+    <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:28px;">
+      <a href="../index.html" style="color:var(--black);text-decoration:underline;">← Back to Store</a>
+    </p>
+  </div>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+function switchTab(tab) {
+  document.getElementById('loginTab').classList.toggle('active', tab==='login');
+  document.getElementById('registerTab').classList.toggle('active', tab==='register');
+  document.getElementById('loginForm').style.display    = tab==='login'    ? 'block' : 'none';
+  document.getElementById('registerForm').style.display = tab==='register' ? 'block' : 'none';
+  document.getElementById('authTitle').textContent = tab==='login' ? 'Welcome Back' : 'Create Account';
+  document.getElementById('authSub').textContent   = tab==='login' ? 'Sign in to your Marvello account' : 'Join the Marvello community today';
+}
+
+function togglePass(id, btn) {
+  const input = document.getElementById(id);
+  const show  = input.type === 'password';
+  input.type  = show ? 'text' : 'password';
+  btn.innerHTML = `<i class="${show?'fas fa-eye-slash':'far fa-eye'}"></i>`;
+}
+
+function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPass').value;
+  if (!email || !pass) { toast('<i class="fas fa-exclamation-circle"></i> Please fill in all fields'); return; }
+  if (email === 'admin@marvello.com' && pass === 'admin123') {
+    toast('<i class="fas fa-check-circle"></i> Welcome back, Admin!');
+    setTimeout(() => window.location.href = 'admin.html', 1000);
+    return;
+  }
+  toast('<i class="fas fa-check-circle"></i> Signed in successfully!');
+  setTimeout(() => window.location.href = '../index.html', 1000);
+}
+
+function handleRegister() {
+  const fname = document.getElementById('regFname').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const pass  = document.getElementById('regPass').value;
+  const terms = document.getElementById('terms').checked;
+  if (!fname || !email || !pass) { toast('<i class="fas fa-exclamation-circle"></i> Please fill in all fields'); return; }
+  if (!terms) { toast('<i class="fas fa-exclamation-circle"></i> Please accept the terms'); return; }
+  if (pass.length < 8) { toast('<i class="fas fa-exclamation-circle"></i> Password must be at least 8 characters'); return; }
+  toast(`<i class="fas fa-check-circle"></i> Account created! Welcome, ${fname}!`);
+  setTimeout(() => window.location.href = '../index.html', 1200);
+}
+</script>
+</body>
+</html>
