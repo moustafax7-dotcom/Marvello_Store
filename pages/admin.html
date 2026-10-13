@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500&family=Jost:wght@200;300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="../css/vendor/bootstrap-grid.min.css">
   <link rel="stylesheet" href="../css/style.css">
   <style>
     /* ── Admin overrides ── */
@@ -81,6 +82,8 @@
 
     @media (max-width: 1100px) { .charts-grid, .charts-grid-3 { grid-template-columns: 1fr; } .mini-stats { grid-template-columns: 1fr 1fr; } .coupon-grid { grid-template-columns: 1fr 1fr; } }
   </style>
+  <link rel="stylesheet" href="../css/responsive.css">
+  <script src="../js/responsive.js" defer></script>
 </head>
 <body>
 <div class="admin-wrap">
@@ -153,10 +156,10 @@
           <span class="admin-card-title">Recent Orders</span>
           <button class="admin-btn" onclick="showPage('orders',null)">View All</button>
         </div>
-        <table class="admin-table">
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table class="admin-table">
           <thead><tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
           <tbody id="recentOrdersTable"></tbody>
-        </table>
+        </table></div>
       </div>
     </div>
 
@@ -186,10 +189,10 @@
           <input id="prodSearch" type="text" placeholder="Search products..." onkeyup="filterProducts()"
             style="padding:8px 14px;border:1px solid #e4ddd0;font-size:12px;outline:none;font-family:'Jost',sans-serif;width:220px;">
         </div>
-        <table class="admin-table">
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table class="admin-table">
           <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Badge</th><th>Rating</th><th>Actions</th></tr></thead>
           <tbody id="productsTable"></tbody>
-        </table>
+        </table></div>
       </div>
     </div>
 
@@ -204,10 +207,10 @@
       </div>
       <div class="admin-card">
         <div class="admin-card-top"><span class="admin-card-title">Stock Levels</span><button class="admin-btn" onclick="restockAll()">Restock All</button></div>
-        <table class="admin-table">
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table class="admin-table">
           <thead><tr><th>Product</th><th>SKU</th><th>Stock</th><th>Level</th><th>Status</th><th>Action</th></tr></thead>
           <tbody id="inventoryTable"></tbody>
-        </table>
+        </table></div>
       </div>
     </div>
 
@@ -225,10 +228,10 @@
         </select>
       </div>
       <div class="admin-card">
-        <table class="admin-table">
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table class="admin-table">
           <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
           <tbody id="ordersTable"></tbody>
-        </table>
+        </table></div>
       </div>
     </div>
 
@@ -255,10 +258,10 @@
           <input type="text" placeholder="Search..." oninput="filterCustomers(this.value)"
             style="padding:8px 14px;border:1px solid #e4ddd0;font-size:12px;outline:none;font-family:'Jost',sans-serif;">
         </div>
-        <table class="admin-table" id="custTable">
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table class="admin-table" id="custTable">
           <thead><tr><th>Name</th><th>Email</th><th>Orders</th><th>Total Spent</th><th>Segment</th><th>Joined</th></tr></thead>
           <tbody id="custTableBody"></tbody>
-        </table>
+        </table></div>
       </div>
     </div>
 
@@ -277,7 +280,7 @@
       <div class="coupon-grid" id="couponGrid"></div>
       <div class="admin-card">
         <div class="admin-card-top"><span class="admin-card-title">Usage History</span></div>
-        <table class="admin-table">
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable data table"><table class="admin-table">
           <thead><tr><th>Code</th><th>Customer</th><th>Order</th><th>Discount</th><th>Date</th></tr></thead>
           <tbody>
             <tr><td><strong>MARVELLO10</strong></td><td>Ahmed H.</td><td>MRV-1042</td><td>EGP 185</td><td>Mar 6</td></tr>
@@ -285,7 +288,7 @@
             <tr><td><strong>SAVE100</strong></td><td>Omar K.</td><td>MRV-1035</td><td>EGP 100</td><td>Mar 1</td></tr>
             <tr><td><strong>MARVELLO10</strong></td><td>Nour A.</td><td>MRV-1033</td><td>EGP 72</td><td>Feb 28</td></tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
     </div>
 
@@ -299,7 +302,7 @@
       <span class="modal-title" id="modalTitle">Add Product</span>
       <button class="modal-x" onclick="closeProductModal()"><i class="fas fa-times"></i></button>
     </div>
-    <div class="form-row" style="margin-bottom:14px;">
+    <div class="form-row row row-cols-1 row-cols-md-2 g-3" style="margin-bottom:14px;">
       <div class="form-group" style="margin:0;"><label class="form-lbl">Name *</label><input id="mName" type="text" class="form-inp" placeholder="e.g. Structured Blazer"></div>
       <div class="form-group" style="margin:0;"><label class="form-lbl">Category *</label>
         <select id="mCat" class="form-inp" style="background:#fdfcf9;">
@@ -308,12 +311,12 @@
         </select>
       </div>
     </div>
-    <div class="form-row" style="margin-bottom:14px;">
+    <div class="form-row row row-cols-1 row-cols-md-2 g-3" style="margin-bottom:14px;">
       <div class="form-group" style="margin:0;"><label class="form-lbl">Price (EGP) *</label><input id="mPrice" type="number" class="form-inp" placeholder="1200"></div>
       <div class="form-group" style="margin:0;"><label class="form-lbl">Old Price</label><input id="mOldPrice" type="number" class="form-inp" placeholder="1500"></div>
     </div>
     <div class="form-group" style="margin-bottom:14px;"><label class="form-lbl">Description</label><textarea id="mDesc" rows="3" class="form-inp" style="resize:vertical;"></textarea></div>
-    <div class="form-row" style="margin-bottom:14px;">
+    <div class="form-row row row-cols-1 row-cols-md-2 g-3" style="margin-bottom:14px;">
       <div class="form-group" style="margin:0;"><label class="form-lbl">Sizes</label><input id="mSizes" type="text" class="form-inp" value="XS, S, M, L, XL"></div>
       <div class="form-group" style="margin:0;"><label class="form-lbl">Badge</label>
         <select id="mBadge" class="form-inp" style="background:#fdfcf9;">
@@ -339,13 +342,13 @@
     <div class="form-group" style="margin-bottom:14px;"><label class="form-lbl">Code *</label>
       <input id="cCode" type="text" class="form-inp" placeholder="MARVELLO20" oninput="this.value=this.value.toUpperCase()" style="font-family:'Cinzel',serif;letter-spacing:.15em;">
     </div>
-    <div class="form-row" style="margin-bottom:14px;">
+    <div class="form-row row row-cols-1 row-cols-md-2 g-3" style="margin-bottom:14px;">
       <div class="form-group" style="margin:0;"><label class="form-lbl">Type</label>
         <select id="cType" class="form-inp" style="background:#fdfcf9;"><option value="percent">Percentage %</option><option value="fixed">Fixed EGP</option></select>
       </div>
       <div class="form-group" style="margin:0;"><label class="form-lbl">Value *</label><input id="cValue" type="number" class="form-inp" placeholder="10"></div>
     </div>
-    <div class="form-row" style="margin-bottom:24px;">
+    <div class="form-row row row-cols-1 row-cols-md-2 g-3" style="margin-bottom:24px;">
       <div class="form-group" style="margin:0;"><label class="form-lbl">Min. Order (EGP)</label><input id="cMin" type="number" class="form-inp" placeholder="0"></div>
       <div class="form-group" style="margin:0;"><label class="form-lbl">Expiry Date</label><input id="cExpiry" type="date" class="form-inp"></div>
     </div>
