@@ -497,14 +497,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Overlay
   document.querySelector('.overlay')?.addEventListener('click', () => { closeCart(); closeWishlist(); });
 
-  // Mobile menu
-  document.getElementById('hamburger')?.addEventListener('click', () => {
-    document.getElementById('mobileNav')?.classList.add('open');
-  });
-  document.getElementById('mobileNavClose')?.addEventListener('click', () => {
-    document.getElementById('mobileNav')?.classList.remove('open');
-  });
-
   // Checkout btn in drawer
   document.querySelector('.drawer-checkout')?.addEventListener('click', () => {
     if (cart.length === 0) { toast('<i class="fas fa-info-circle"></i> Your bag is empty'); return; }
