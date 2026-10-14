@@ -1,0 +1,85 @@
+/* Shared responsive rules. Bootstrap Grid handles form columns only. */
+.nav-inner { width: 100%; gap: 20px; }
+.form-row.row { display: flex; gap: 0; }
+.form-row.row { margin-inline: -.5rem; }
+.form-row.row > * { min-width: 0; padding-inline: .5rem; margin-top: .75rem; }
+.shop-layout > *, .detail-grid > *, .cart-layout > *, .checkout-layout > *,
+.admin-wrap > *, .charts-grid > *, .charts-grid-3 > * { min-width: 0; }
+input, select, textarea { max-width: 100%; min-width: 0; }
+.product-price, .detail-price, .hero-cta, .shop-toolbar, .footer-bottom { flex-wrap: wrap; }
+.table-scroll { overflow-x: auto; max-width: 100%; }
+.table-scroll table { min-width: 620px; }
+.mobile-nav { visibility: hidden; overflow-y: auto; }
+.mobile-nav.open { visibility: visible; }
+.mobile-nav-close { min-width: 44px; min-height: 44px; }
+body.menu-open { overflow: hidden; }
+.filters-toggle { display: none; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+@media (max-width: 1199px) {
+  .nav-menu, .nav-search-bar { display: none; }
+  .hamburger { display: flex; }
+  .hero-right { display: block; min-height: 360px; }
+  .hero { min-height: auto; }
+  .hero-title { font-size: clamp(2.8rem, 7vw, 5rem); }
+  .checkout-layout, .cart-layout { gap: 28px; }
+}
+@media (max-width: 900px) {
+  .filters-toggle { display: block; padding: 14px 20px; border: 1px solid var(--gray-200); text-align: left; }
+  .sidebar.filters-open { display: block; position: static; }
+  .shop-layout { gap: 24px; }
+  .admin-side { display: block; position: static; height: auto; padding-bottom: 16px; }
+  .admin-side-logo { margin-bottom: 16px; }
+  .admin-link { min-height: 44px; }
+  .detail-grid { gap: 32px; }
+}
+@media (max-width: 767px) {
+  .container { padding-inline: 16px; }
+  .nav-inner { padding: 14px 16px; gap: 8px; }
+  .nav-logo { font-size: 1rem; letter-spacing: .12em; gap: 4px; }
+  .nav-right { gap: 2px; }
+  .nav-icon-btn, .hamburger { width: 36px; height: 44px; }
+  .announcement { padding: 10px 16px; line-height: 1.7; }
+  .section-header { align-items: flex-start; flex-direction: column; gap: 20px; }
+  .section-title { font-size: clamp(1.8rem, 8vw, 2.5rem); overflow-wrap: anywhere; }
+  .hero-left { padding: 44px 20px; }
+  .hero-right { min-height: 300px; }
+  .hero-title { font-size: clamp(2.5rem, 10vw, 4rem); }
+  .hero-cta { gap: 12px; }
+  .hero-cta .btn { padding-inline: 20px; }
+  .products-tabs { overflow-x: auto; max-width: 100%; }
+  .tab-btn { flex-shrink: 0; }
+  .product-name { overflow-wrap: anywhere; }
+  .product-price { gap: 6px; }
+  .quick-add { transform: none; opacity: 1; font-size: 10px; padding: 12px 4px; }
+  .newsletter-form { flex-wrap: wrap; }
+  .newsletter-form input { width: 100%; flex-basis: 100%; }
+  .newsletter-form button { width: 100%; padding: 16px; }
+  .shop-toolbar { gap: 14px; }
+  .gallery { grid-template-columns: 1fr; }
+  .thumb-list { flex-direction: row; order: 2; overflow-x: auto; }
+  .thumb { flex-shrink: 0; }
+  .detail-name { font-size: 2rem; }
+  .cart-table-head { display: none; }
+  .cart-row { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cart-product { grid-column: 1 / -1; }
+  .cart-row > :last-child::before { content: 'Total: '; font-weight: 400; }
+  .qty-control button { min-width: 32px; min-height: 36px; }
+  .order-summary { padding: 22px; }
+  .coupon-box { flex-wrap: wrap; }
+  .coupon-box input { width: 100%; }
+  .review-bars { width: 100%; }
+  .admin-card { padding: 16px; }
+  .admin-card-top { flex-wrap: wrap; gap: 12px; }
+  .admin-body { padding: 24px 16px; }
+  .modal { padding: 20px; max-width: calc(100% - 24px); margin: 0; }
+  .tracking-item { flex-wrap: wrap; }
+}
+@media (max-width: 480px) {
+  .mini-stats, .coupon-grid { grid-template-columns: 1fr; }
+  .wishlist-item { grid-template-columns: 60px minmax(0,1fr); }
+  .wishlist-item-actions { grid-column: 2; }
+  .drawer-header, .drawer-body, .drawer-footer { padding-inline: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
