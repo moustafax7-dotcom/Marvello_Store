@@ -54,19 +54,35 @@ const COUPONS = {
 };
 
 // ── STATE ──────────────────────────────────────────────────────
-let cart     = JSON.parse(localStorage.getItem('mv_cart')     || '[]');
-let wishlist = JSON.parse(localStorage.getItem('mv_wishlist') || '[]');
-let reviews  = JSON.parse(localStorage.getItem('mv_reviews')  || '{}');
-let appliedCoupon = null;
+// Storage may be blocked or contain damaged data; keep the storefront usable.
+function readSaved(key, fallback, valid) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key));
+    return valid(value) ? value : fallback;
+  } catch { return fallback; }
+}
+function writeSaved(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* Current-tab state remains usable. */ }
+}
+let cart = readSaved('mv_cart', [], value => Array.isArray(value) && value.every(item =>
+  item && PRODUCTS.some(product => product.id === item.id) &&
+  typeof item.name === 'string' && typeof item.size === 'string' &&
+  Number.isFinite(item.price) && item.price >= 0 && Number.isInteger(item.qty) && item.qty > 0));
+let wishlist = readSaved('mv_wishlist', [], value => Array.isArray(value) && value.every(item =>
+  item && PRODUCTS.some(product => product.id === item.id)));
+let reviews = readSaved('mv_reviews', {}, value => value && typeof value === 'object' &&
+  !Array.isArray(value) && Object.values(value).every(Array.isArray));
+let appliedCoupon = readSaved('mv_coupon', null, value => typeof value === 'string' &&
+  Object.prototype.hasOwnProperty.call(COUPONS, value));
 
 // ── FORMAT ────────────────────────────────────────────────────
 const fmt = (n) => 'EGP ' + Number(n).toLocaleString('en-EG');
 const stars = (r) => '★'.repeat(Math.round(r)) + '☆'.repeat(5 - Math.round(r));
 
 // ── SAVE ──────────────────────────────────────────────────────
-function saveCart()     { localStorage.setItem('mv_cart',     JSON.stringify(cart));     updateCartBadge(); }
-function saveWishlist() { localStorage.setItem('mv_wishlist', JSON.stringify(wishlist)); updateWishBadge(); }
-function saveReviews()  { localStorage.setItem('mv_reviews',  JSON.stringify(reviews));  }
+function saveCart()     { writeSaved('mv_cart', cart);     updateCartBadge(); }
+function saveWishlist() { writeSaved('mv_wishlist', wishlist); updateWishBadge(); }
+function saveReviews()  { writeSaved('mv_reviews', reviews);  }
 
 // ── BADGES ────────────────────────────────────────────────────
 function updateCartBadge() {
@@ -116,15 +132,17 @@ function cartDiscount() {
   if (!appliedCoupon) return 0;
   const c = COUPONS[appliedCoupon];
   if (!c) return 0;
-  return c.type === 'percent' ? Math.round(cartSubtotal() * c.value / 100) : c.value;
+  return Math.min(cartSubtotal(), c.type === 'percent' ? Math.round(cartSubtotal() * c.value / 100) : c.value);
 }
 function cartShipping() { return cartSubtotal() - cartDiscount() >= 2000 ? 0 : 150; }
 function cartTotal()    { return cartSubtotal() - cartDiscount() + cartShipping(); }
 
 function applyCoupon(code) {
-  const c = COUPONS[code.toUpperCase()];
+  code = String(code).trim().toUpperCase();
+  const c = Object.prototype.hasOwnProperty.call(COUPONS, code) ? COUPONS[code] : null;
   if (c) {
-    appliedCoupon = code.toUpperCase();
+    appliedCoupon = code;
+    writeSaved('mv_coupon', appliedCoupon);
     toast(`<i class="fas fa-tag"></i> Coupon applied — ${c.label}!`);
     return true;
   } else {
@@ -182,7 +200,7 @@ function renderCartDrawer() {
         <i class="fas fa-shopping-bag"></i>
         <p>Your bag is empty</p>
         <span>Discover the new collection</span>
-        <a href="pages/shop.html" class="btn btn-black" style="margin-top:16px;">Shop Now</a>
+        <a href="${window.location.pathname.includes('/pages/') ? 'shop.html' : 'pages/shop.html'}" class="btn btn-black" style="margin-top:16px;">Shop Now</a>
       </div>`;
   } else {
     body.innerHTML = cart.map(item => `
